@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct DisplaySettingViewModel {
-    static let options: [DisplaySettingOptions] = {
+class DisplaySettingViewModel: ObservableObject {
+    @Published var options: [DisplaySettingOptions] = {
         return [DisplaySettingOptions(title: "Preview",
                                       options: [
                                         .init(currency: .init(currencyName: "CAD",
@@ -20,10 +20,11 @@ struct DisplaySettingViewModel {
                 
                 DisplaySettingOptions(title: "Appearance",
                                       options: [
-                                        .init(option: "System"),
-                                        .init(option: "Light"),
-                                        .init(option: "Dark")
-                                      ]),
+                                        .init(option: "System", isSelected: true),
+                                        .init(option: "Light", isSelected: false),
+                                        .init(option: "Dark", isSelected: false)
+                                      ]
+                                     ),
                 
                 DisplaySettingOptions(title: "Text Size",
                                       options: [
@@ -46,17 +47,20 @@ struct DisplaySettingViewModel {
 
 struct DisplaySettingOptions: Identifiable {
     let title: String
-    let options: [DisplaySettingOption]
+    var options: [DisplaySettingOption]
     let id = UUID()
 }
 
-struct DisplaySettingOption: Identifiable {
+struct DisplaySettingOption: Hashable, Identifiable {
+    
     let currency: Currency?
     let option: String?
     let id = UUID()
+    var isSelected: Bool
     
-    init(currency: Currency? = nil, option: String? = nil) {
+    init(currency: Currency? = nil, option: String? = nil, isSelected: Bool = false) {
         self.currency = currency
         self.option = option
+        self.isSelected = isSelected
     }
 }

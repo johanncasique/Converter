@@ -21,7 +21,7 @@ struct CurrenciesModel: Decodable {
     }
 }
 
-struct Currency: Codable {
+struct Currency: Codable, Hashable {
     let currencyName, rate, rateForAmount: String
     var imageName: String?
     var countryCode: String
