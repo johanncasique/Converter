@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		871108EB286DD28A00378AE3 /* UIApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871108EA286DD28A00378AE3 /* UIApplicationDelegate.swift */; };
+		871108EC286DD28A00378AE3 /* UIApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871108EA286DD28A00378AE3 /* UIApplicationDelegate.swift */; };
+		87526B182880525B00B288AC /* DisplaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87526B172880525B00B288AC /* DisplaySetting.swift */; };
+		87526B1A28805B9600B288AC /* DisplaySettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87526B1928805B9600B288AC /* DisplaySettingViewModel.swift */; };
+		8770A0BB286F145F002B625A /* 127.0.0.1.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8770A0BA286F145F002B625A /* 127.0.0.1.cer */; };
+		8770A0BC286F145F002B625A /* 127.0.0.1.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8770A0BA286F145F002B625A /* 127.0.0.1.cer */; };
+		87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D7287F643700F22D8A /* SettingsView.swift */; };
+		87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */; };
+		87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C5D206287889B600E8ED05 /* CalculatorView.swift */; };
 		87C60D1E27007981003560A4 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D1D27007981003560A4 /* Tests_iOS.swift */; };
 		87C60D2027007981003560A4 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D1F27007981003560A4 /* Tests_iOSLaunchTests.swift */; };
 		87C60D2A27007981003560A4 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D2927007981003560A4 /* Tests_macOS.swift */; };
@@ -49,6 +58,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		871108EA286DD28A00378AE3 /* UIApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationDelegate.swift; sourceTree = "<group>"; };
+		871108ED286EF6ED00378AE3 /* Converter--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Converter--iOS--Info.plist"; sourceTree = "<group>"; };
+		87526B172880525B00B288AC /* DisplaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySetting.swift; sourceTree = "<group>"; };
+		87526B1928805B9600B288AC /* DisplaySettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingViewModel.swift; sourceTree = "<group>"; };
+		8770A0BA286F145F002B625A /* 127.0.0.1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 127.0.0.1.cer; sourceTree = "<group>"; };
+		87B1D4D7287F643700F22D8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		87C5D206287889B600E8ED05 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		87C60D052700797E003560A4 /* ConverterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterApp.swift; sourceTree = "<group>"; };
 		87C60D062700797E003560A4 /* CurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyView.swift; sourceTree = "<group>"; };
 		87C60D0727007980003560A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,9 +121,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		87526B16288051D500B288AC /* DisplaySetting */ = {
+			isa = PBXGroup;
+			children = (
+				87526B172880525B00B288AC /* DisplaySetting.swift */,
+				87526B1928805B9600B288AC /* DisplaySettingViewModel.swift */,
+			);
+			path = DisplaySetting;
+			sourceTree = "<group>";
+		};
+		87B1D4D6287F642000F22D8A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				87526B16288051D500B288AC /* DisplaySetting */,
+				87B1D4D7287F643700F22D8A /* SettingsView.swift */,
+				87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		87C5D2052878892F00E8ED05 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				87C5D206287889B600E8ED05 /* CalculatorView.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
 		87C60CFF2700797E003560A4 = {
 			isa = PBXGroup;
 			children = (
+				8770A0BA286F145F002B625A /* 127.0.0.1.cer */,
+				871108ED286EF6ED00378AE3 /* Converter--iOS--Info.plist */,
 				87C60D4E27065515003560A4 /* Converter (iOS).entitlements */,
 				87C60D042700797E003560A4 /* Shared */,
 				87C60D1327007981003560A4 /* macOS */,
@@ -125,6 +171,7 @@
 				87C60D0727007980003560A4 /* Assets.xcassets */,
 				87FBB5EE283CC390004D5494 /* CountryData.json */,
 				87C60D4F27086518003560A4 /* Documentation.docc */,
+				871108EA286DD28A00378AE3 /* UIApplicationDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -169,6 +216,8 @@
 		87C60D412702699E003560A4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				87B1D4D6287F642000F22D8A /* Settings */,
+				87C5D2052878892F00E8ED05 /* Calculator */,
 				87FBB5E7283C2106004D5494 /* AddCurrency */,
 				87C60D42270269AD003560A4 /* Home */,
 			);
@@ -235,6 +284,8 @@
 			dependencies = (
 			);
 			name = "Converter (iOS)";
+			packageProductDependencies = (
+			);
 			productName = "Converter (iOS)";
 			productReference = 87C60D0C27007980003560A4 /* Converter.app */;
 			productType = "com.apple.product-type.application";
@@ -347,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87FBB5EF283CC390004D5494 /* CountryData.json in Resources */,
+				8770A0BB286F145F002B625A /* 127.0.0.1.cer in Resources */,
 				87C60D3127007981003560A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,6 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87FBB5F0283CC390004D5494 /* CountryData.json in Resources */,
+				8770A0BC286F145F002B625A /* 127.0.0.1.cer in Resources */,
 				87C60D3227007981003560A4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,10 +439,16 @@
 				87FBB5EC283CB913004D5494 /* CountryModel.swift in Sources */,
 				87C60D5027086518003560A4 /* Documentation.docc in Sources */,
 				87C60D4927026C16003560A4 /* Service.swift in Sources */,
+				87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */,
 				87C60D4B27026CEB003560A4 /* Config.swift in Sources */,
 				87C60D2F27007981003560A4 /* CurrencyView.swift in Sources */,
+				87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */,
+				87526B1A28805B9600B288AC /* DisplaySettingViewModel.swift in Sources */,
 				87C60D2D27007981003560A4 /* ConverterApp.swift in Sources */,
+				87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */,
+				87526B182880525B00B288AC /* DisplaySetting.swift in Sources */,
 				87FBB5E9283C2122004D5494 /* AddCurrencyView.swift in Sources */,
+				871108EB286DD28A00378AE3 /* UIApplicationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +461,7 @@
 				87C60D2E27007981003560A4 /* ConverterApp.swift in Sources */,
 				87FBB5EA283C2122004D5494 /* AddCurrencyView.swift in Sources */,
 				87FBB5ED283CB913004D5494 /* CountryModel.swift in Sources */,
+				871108EC286DD28A00378AE3 /* UIApplicationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +620,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Converter--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -591,6 +653,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Converter--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

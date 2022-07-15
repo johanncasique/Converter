@@ -17,7 +17,7 @@ class CurrencyViewModel: ObservableObject {
     let service = CurrencyService()
     
     init() {
-        Task { await fetchCurrency() }
+        Task { try? await service.fetchCurrencies() }
     }
     
     private func fetchCurrency() async {

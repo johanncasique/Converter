@@ -12,6 +12,7 @@ class Countries: ObservableObject, Identifiable {
     @Published var list = [CountryModel]()
     @Published var listSorted = [(letter: Character("A"),
                                   countries: [CountryModel]())]
+    @Published var selectedCountries = [CountryModel]()
     
     init() {
         fetch()
@@ -55,7 +56,7 @@ class Countries: ObservableObject, Identifiable {
     }
 }
 
-struct CountryModel: Decodable, Identifiable {
+struct CountryModel: Decodable, Identifiable, Hashable {
     
     let name, dialCode, code: String
     let id = UUID()

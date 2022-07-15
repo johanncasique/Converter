@@ -10,30 +10,44 @@ import SwiftUI
 struct CurrencyView: View {
     
     @StateObject private var viewModel = CurrencyViewModel()
+    @ObservedObject private var countries = Countries()
+    
     @State private var isShowingAddCountry = false
+    @State private var selectionCountry = [CountryModel]()
+    @State private var isShowingCalculator = false
+    @State private var customAmount = ""
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(0..<1, id: \.self) { i in
-                    CurrencyModelView(currency:
-                        Currency(currencyName: "Euro",
-                                 rate: "1", rateForAmount: "1", imageName: "EU",
-                                 countryCode: ""),
-                        showAmount: true)
-                        .padding(4)
-                        .listRowSeparator(.hidden)
-                    
+            VStack {
+                List {
+                    ForEach(selectionCountry, id: \.self) { i in
+                        
+                        Button {
+                            isShowingCalculator.toggle()
+                        } label: {
+                            viewModel(with: i)
+                            .padding(4)
+                            .listRowSeparator(.hidden)
+                        }
+                        .sheet(isPresented: $isShowingCalculator) {
+                            CalculatorView(isPresented: $isShowingCalculator,
+                                           customAmount: $customAmount)
+                        }
+                    }
                 }
-            }
-            .navigationTitle(Text("Currency"))
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    toolBarItemView
+                .navigationTitle(Text("Currency"))
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        toolBarItemView
+                    }
                 }
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
+        .toolbar {
+            AnyView(Image(systemName: "minus.slash.plus"))
+        }
     }
     
     private var headerView: some View {
@@ -49,18 +63,33 @@ struct CurrencyView: View {
     private var toolBarItemView: some View {
         HStack {
             Button(action: {
-                isShowingAddCountry = true
-                print("Plus Button clicked") }) {
+                isShowingAddCountry = true }) {
                 Image(systemName: "plus")
             }
                 .sheet(isPresented: $isShowingAddCountry) {
-                    AddCurrencyView()
+                    AddCurrencyView(isPresented: $isShowingAddCountry, countrySelection: $selectionCountry)
                 }
             Spacer()
             Button("Edit") {
                 print("Click button")
             }
         }.padding(.horizontal, -5)
+    }
+    
+    func selectedCountriesData() -> String {
+        return "\(selectionCountry.count)"
+    }
+    
+    func viewModel(with model: CountryModel) -> some View {
+        
+        let currency = Currency(currencyName: model.name,
+                                rate: "1",
+                                rateForAmount: "1",
+                                imageName: model.code,
+                                countryCode: model.code)
+        
+        return CurrencyModelView(currency: currency, showAmount: true,
+                                 amount: customAmount)
     }
 }
 
@@ -79,10 +108,12 @@ struct CurrencyModelView: View {
     private var isSelectedAmount = true
     var showAmount = true
     var currency: Currency
+    var amount: String
 
-    init(currency: Currency, showAmount: Bool) {
+    init(currency: Currency, showAmount: Bool, amount: String) {
         self.currency = currency
         self.showAmount = showAmount
+        self.amount = amount
     }
     
     var body: some View {
@@ -104,9 +135,9 @@ struct CurrencyModelView: View {
             VStack(alignment: .trailing, spacing: 8) {
                 if showAmount {
                     if isSelectedAmount {
-                        selectedAmount("3.000,00 €")
+                        selectedAmount("\(amount) €")
                     } else {
-                        unSelectedAmountView("3.000,00 €")
+                        unSelectedAmountView("\(amount) €")
                     }
                 }
             }
