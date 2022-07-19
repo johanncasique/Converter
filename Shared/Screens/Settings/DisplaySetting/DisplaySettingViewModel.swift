@@ -8,6 +8,26 @@
 import Foundation
 
 class DisplaySettingViewModel: ObservableObject {
+    
+    enum Options {
+        
+        enum Title: String {
+            case preview = "Preview"
+            case appearance = "Appearance"
+        }
+        
+        enum Appeareance: String {
+            case system = "System"
+            case light = "Light"
+            case dark = "Dark"
+        }
+        
+        enum TexSize: String {
+            case system = "Use System Syze"
+            case bold = "Bold Text"
+        }
+    }
+    
     @Published var options: [DisplaySettingOptions] = {
         return [DisplaySettingOptions(title: "Preview",
                                       options: [
@@ -20,25 +40,25 @@ class DisplaySettingViewModel: ObservableObject {
                 
                 DisplaySettingOptions(title: "Appearance",
                                       options: [
-                                        .init(option: "System", isSelected: true),
-                                        .init(option: "Light", isSelected: false),
-                                        .init(option: "Dark", isSelected: false)
+                                        .init(name: "System", isSelected: true),
+                                        .init(name: "Light", isSelected: false),
+                                        .init(name: "Dark", isSelected: false)
                                       ]
                                      ),
                 
                 DisplaySettingOptions(title: "Text Size",
                                       options: [
-                                        .init(option: "Use System Syze"),
-                                        .init(option: "Bold Text")
+                                        .init(name: "Use System Syze"),
+                                        .init(name: "Bold Text")
                                       ]),
                 
                 DisplaySettingOptions(title: "Maximum Number of Decimal Digits",
                                       options: [
-                                        .init(option:"No Digit Maximun"),
-                                        .init(option: "2 Digits"),
-                                        .init(option: "3 Digits"),
-                                        .init(option: "4 Digits"),
-                                        .init(option: "5 Digits")
+                                        .init(name:"No Digit Maximun"),
+                                        .init(name: "2 Digits"),
+                                        .init(name: "3 Digits"),
+                                        .init(name: "4 Digits"),
+                                        .init(name: "5 Digits")
                                       ])
         ]
         
@@ -54,13 +74,13 @@ struct DisplaySettingOptions: Identifiable {
 struct DisplaySettingOption: Hashable, Identifiable {
     
     let currency: Currency?
-    let option: String?
+    let name: String?
     let id = UUID()
     var isSelected: Bool
     
-    init(currency: Currency? = nil, option: String? = nil, isSelected: Bool = false) {
+    init(currency: Currency? = nil, name: String? = nil, isSelected: Bool = false) {
         self.currency = currency
-        self.option = option
+        self.name = name
         self.isSelected = isSelected
     }
 }
