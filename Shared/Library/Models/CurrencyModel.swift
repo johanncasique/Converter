@@ -35,4 +35,48 @@ struct Currency: Codable, Hashable {
     }
 }
 
+class Amount: ObservableObject {
+    
+    enum Decimal: Int {
+        case two = 2
+        case three = 3
+        case four = 4
+        case five = 5
+    }
+    
+    var value: Double
+    @Published var minimunDecimal: Decimal
+    
+    init(value: Double, minimunDecimal: Decimal = .two) {
+        self.value = value
+        self.minimunDecimal = minimunDecimal
+    }
+}
+
+extension Amount: CustomStringConvertible {
+    
+    private var valueFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = minimunDecimal.rawValue
+        formatter.maximumIntegerDigits = 13
+        return formatter
+    }
+    
+    var description: String {
+        return "\(valueFormatter.string(from: NSNumber(value: value)) ?? "")"
+    }
+}
+
+extension Currency {
+    var valueFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumIntegerDigits = 13
+        return formatter
+    }
+    
+    
+}
+
 

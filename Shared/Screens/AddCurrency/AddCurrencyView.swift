@@ -48,7 +48,8 @@ struct AddCurrencyView: View {
                                                                  rateForAmount: "0", imageName: country.code,
                                                                  countryCode: country.code),
                                               showAmount: false,
-                                              amount: "")
+                                              amount: .init(value: 9675),
+                                              isBold: .bold, fontSize: 14)
                             .padding(5)
                         }
                     }

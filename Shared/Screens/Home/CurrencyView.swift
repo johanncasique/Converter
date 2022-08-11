@@ -89,7 +89,8 @@ struct CurrencyView: View {
                                 countryCode: model.code)
         
         return CurrencyModelView(currency: currency, showAmount: true,
-                                 amount: customAmount)
+                                 amount: Amount(value: Double(customAmount) ?? 0), isBold: .bold,
+                                 fontSize: 14)
     }
 }
 
@@ -108,12 +109,16 @@ struct CurrencyModelView: View {
     private var isSelectedAmount = true
     var showAmount = true
     var currency: Currency
-    var amount: String
+    @ObservedObject var amount: Amount
+    var isBold: Font.Weight
+    var fontSize: CGFloat
 
-    init(currency: Currency, showAmount: Bool, amount: String) {
+    init(currency: Currency, showAmount: Bool, amount: Amount, isBold: Font.Weight, fontSize: CGFloat) {
         self.currency = currency
         self.showAmount = showAmount
         self.amount = amount
+        self.isBold = isBold
+        self.fontSize = fontSize
     }
     
     var body: some View {
@@ -125,38 +130,43 @@ struct CurrencyModelView: View {
                 .padding(.leading, 0)
             VStack(alignment: .leading) {
                 Text(currency.countryCode)
-                    .font(Font.caption2)
+                    .font(.system(size: fontSize))
+                    .font(Font.caption2.weight(isBold))
                     .foregroundColor(.secondary)
                 Text(currency.currencyName)
-                    .font(.body)
+                    .font(.system(size: fontSize))
+                    .font(.body.weight(isBold))
                     .foregroundColor(.primary)
             }
             Spacer()
             VStack(alignment: .trailing, spacing: 8) {
                 if showAmount {
                     if isSelectedAmount {
-                        selectedAmount("\(amount) €")
+                        selectedAmount("\(amount.description) €", isBold: isBold)
                     } else {
-                        unSelectedAmountView("\(amount) €")
+                        unSelectedAmountView("\(amount.description) €", isBold: isBold)
                     }
                 }
             }
         }
     }
     
-    func unSelectedAmountView(_ amount: String) -> some View {
+    func unSelectedAmountView(_ amount: String, isBold: Font.Weight) -> some View {
         Text(amount)
+            .font(.system(size: fontSize))
             .foregroundColor(.green)
-            .font(.body)
+            .font(.body.weight(isBold))
             .padding(5)
             .background(Color.green.opacity(0.25))
             .cornerRadius(10)
             
     }
     
-    func selectedAmount(_ amount: String) -> some View {
+    func selectedAmount(_ amount: String, isBold: Font.Weight) -> some View {
         Text(amount)
+            .font(.system(size: fontSize))
             .padding(5)
+            .font(.body.weight(isBold))
             .foregroundColor(.white)
             .background(Color(.systemGreen))
             .cornerRadius(10)
