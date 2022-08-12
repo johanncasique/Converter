@@ -21,7 +21,7 @@ class DisplaySettingViewModel: ObservableObject {
         
         enum Appeareance: String {
             case system = "System"
-            case light = "Light"
+            case light = "Ligth"
             case dark = "Dark"
         }
         

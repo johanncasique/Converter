@@ -15,6 +15,7 @@ struct DisplaySetting: View {
     @State private var toggleBoldTextIsOn = false
     @ObservedObject var amount = Amount(value: 9756.89879)
     @State private var textSize = 14.0
+    @State private var showDetail = false
 
     
     var body: some View {
@@ -128,6 +129,7 @@ struct DisplaySetting: View {
                         .accentColor(Color.green)
                     Text("A")
                 }
+                
             }
         }
     }
