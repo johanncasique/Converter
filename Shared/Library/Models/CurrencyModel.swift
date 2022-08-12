@@ -67,16 +67,3 @@ extension Amount: CustomStringConvertible {
         return "\(valueFormatter.string(from: NSNumber(value: value)) ?? "")"
     }
 }
-
-extension Currency {
-    var valueFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumIntegerDigits = 13
-        return formatter
-    }
-    
-    
-}
-
-

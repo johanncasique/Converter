@@ -15,7 +15,7 @@ struct ConverterApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                CurrencyView()
+                HomeView()
                     .tabItem({
                         Label("Converter", systemImage: "plus.forwardslash.minus")
                             .foregroundColor(.green)

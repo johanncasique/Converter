@@ -59,11 +59,12 @@ struct DisplaySetting: View {
     func handleList(with model: DisplaySettingOption) -> some View {
         
         if let currency = model.currency {
-            return AnyView(CurrencyModelView(currency: currency,
-                                             showAmount: true,
-                                             amount: amount,
-                                             isBold: toggleBoldTextIsOn == true ? .bold : .regular,
-                                             fontSize: textSize))
+            return AnyView(CurrencyView(with: .init(isSelectedAmount: true,
+                                            showAmount: true,
+                                            currency: currency,
+                                            amount: amount,
+                                            isBold: toggleBoldTextIsOn == true ? .bold : .regular,
+                                            fontSize: textSize)))
         }
         
         if  model.appearance != nil {
@@ -93,7 +94,6 @@ struct DisplaySetting: View {
     }
     
     func selectedViewConfiguration(with name: String) -> some View {
-        
         return HStack {
             Text(name)
             Spacer()
@@ -160,15 +160,6 @@ struct DisplaySetting: View {
         default: break
         }
     }
-    
-//    func changeSystemSize(from option: DisplaySettingOption) {
-//        switch DisplaySettingViewModel.Options.TexSize(rawValue: option.name ?? "") {
-//        case .system:
-//            
-//        case .bold:
-//        default: break
-//        }
-//    }
 }
 
 struct DisplaySetting_Previews: PreviewProvider {

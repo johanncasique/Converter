@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 
 @MainActor
-class CurrencyViewModel: ObservableObject {
+class HomeViewModel: ObservableObject {
     
     @Published private(set) var currencys = [Currency]()
     let service = CurrencyService()

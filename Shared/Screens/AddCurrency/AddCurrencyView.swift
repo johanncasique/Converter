@@ -12,7 +12,6 @@ struct AddCurrencyView: View {
     
     @State private var queryString = ""
     @State private var typeOfCurrency: CurrencyOptions = .All
-    @StateObject private var currencyViewModel = CurrencyViewModel()
     @StateObject private var countries = Countries()
     @State private var editMode: EditMode = .active
     @State private var multiSelection = Set<UUID>()
@@ -42,15 +41,8 @@ struct AddCurrencyView: View {
                 List($countries.listSorted, id: \.letter, selection: $multiSelection) { $country in
                     
                     Section(header: Text(String(country.letter))) {
-                        ForEach(country.countries) { country in
-                            CurrencyModelView(currency: Currency(currencyName: country.name,
-                                                                 rate: "0",
-                                                                 rateForAmount: "0", imageName: country.code,
-                                                                 countryCode: country.code),
-                                              showAmount: false,
-                                              amount: .init(value: 9675),
-                                              isBold: .bold, fontSize: 14)
-                            .padding(5)
+                        ForEach(country.countries) { countryData in
+                            showCountry(with: countryData)
                         }
                     }
                 }
@@ -78,6 +70,24 @@ struct AddCurrencyView: View {
         isPresented.toggle()
         countries.selectedCountries.append(contentsOf: filterCountries)
         countrySelection.append(contentsOf: filterCountries)
+    }
+    
+    func showCountry(with model: CountryModel) -> some View {
+        
+        let currency = Currency(currencyName: model.name,
+                                rate: "0",
+                                rateForAmount: "0", imageName: model.code,
+                                countryCode: model.code)
+        
+        let viewModel = CurrencyViewModel(isSelectedAmount: false,
+                                          showAmount: false,
+                                          currency: currency,
+                                          amount: .init(value: 7987),
+                                          isBold: .bold,
+                                          fontSize: 14)
+        
+        return CurrencyView(with: viewModel)
+            .padding(5)
     }
 }
 
