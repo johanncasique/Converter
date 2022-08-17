@@ -16,6 +16,8 @@ struct HomeView: View {
     @State private var selectionCountry = [CountryModel]()
     @State private var isShowingCalculator = false
     @State private var customAmount = ""
+    @AppStorage("fontSize") private var fontSize = 0.0
+    @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false
     
     var body: some View {
         NavigationView {
@@ -94,8 +96,8 @@ struct HomeView: View {
                                         showAmount: true,
                                         currency: currency,
                                         amount: amount,
-                                        isBold: .bold,
-                                        fontSize: 14))
+                                        isBold: toggleBoldTextIsOn == true ? .bold : .regular,
+                                        fontSize: fontSize))
     }
 }
 

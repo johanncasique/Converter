@@ -38,6 +38,7 @@ struct Currency: Codable, Hashable {
 class Amount: ObservableObject {
     
     enum Decimal: Int {
+        case zero = 0
         case two = 2
         case three = 3
         case four = 4

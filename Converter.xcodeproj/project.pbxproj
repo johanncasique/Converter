@@ -125,12 +125,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E322FFD28A65DC1004BC2B0 /* Views */ = {
+		1E322FFD28A65DC1004BC2B0 /* RusableViews */ = {
 			isa = PBXGroup;
 			children = (
 				1E32300028A68EEE004BC2B0 /* CurrencyView */,
 			);
-			path = Views;
+			path = RusableViews;
 			sourceTree = "<group>";
 		};
 		1E32300028A68EEE004BC2B0 /* CurrencyView */ = {
@@ -140,6 +140,13 @@
 				1E32300128A68F0A004BC2B0 /* CurrencyViewModel.swift */,
 			);
 			path = CurrencyView;
+			sourceTree = "<group>";
+		};
+		1EC532D228AD2B1300D7740F /* UpdateRates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UpdateRates;
 			sourceTree = "<group>";
 		};
 		87526B16288051D500B288AC /* DisplaySetting */ = {
@@ -154,6 +161,7 @@
 		87B1D4D6287F642000F22D8A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				1EC532D228AD2B1300D7740F /* UpdateRates */,
 				87526B16288051D500B288AC /* DisplaySetting */,
 				87B1D4D7287F643700F22D8A /* SettingsView.swift */,
 				87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */,
@@ -186,7 +194,7 @@
 		87C60D042700797E003560A4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				1E322FFD28A65DC1004BC2B0 /* Views */,
+				1E322FFD28A65DC1004BC2B0 /* RusableViews */,
 				87C60D43270269B6003560A4 /* Library */,
 				87C60D412702699E003560A4 /* Screens */,
 				87C60D052700797E003560A4 /* ConverterApp.swift */,

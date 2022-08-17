@@ -11,12 +11,9 @@ struct DisplaySetting: View {
     
     @ObservedObject var viewModel = DisplaySettingViewModel()
     @State private var systemCheck = ""
-    @State private var toggleSizeIsOn = false
-    @State private var toggleBoldTextIsOn = false
-    @ObservedObject var amount = Amount(value: 9756.89879)
-    @State private var textSize = 14.0
     @State private var showDetail = false
-
+    @AppStorage("Theme") var selectedTheme = ""
+    @AppStorage("DecimalConfiguration") var decimalConfigurationSaved = DisplaySettingViewModel.Options.Decimal.two.rawValue
     
     var body: some View {
         NavigationView {
@@ -26,22 +23,32 @@ struct DisplaySetting: View {
                         ForEach($model.options) { $option in
                             handleList(with: option)
                                 .onTapGesture {
+                                    
                                     for i in 0..<model.options.count {
                                         if let appearances = model.options[i].appearance {
                                             appearances.isSelected = false
                                             systemCheck = ""
                                         }
-                                        
+
                                         if let decimal = model.options[i].decimal {
                                             decimal.isSelected = false
                                             systemCheck = ""
                                         }
                                     }
-                                    option.appearance?.isSelected = true
-                                    systemCheck = "checkmark"
+                                    
+                                    if let appearance = option.appearance {
+                                        systemCheck = ""
+                                        appearance.isSelected = true
+                                        selectedTheme = appearance.name
+                                    }
+                                    
                                     if let decimal = option.decimal {
+                                        systemCheck = ""
+                                        decimal.isSelected = true
+                                        decimalConfigurationSaved = decimal.name
                                         handleDecimal(from: decimal)
                                     }
+                                    systemCheck = "checkmark"
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
@@ -62,13 +69,16 @@ struct DisplaySetting: View {
             return AnyView(CurrencyView(with: .init(isSelectedAmount: true,
                                             showAmount: true,
                                             currency: currency,
-                                            amount: amount,
-                                            isBold: toggleBoldTextIsOn == true ? .bold : .regular,
-                                            fontSize: textSize)))
+                                            amount: viewModel.amount,
+                                                    isBold: viewModel.toggleBoldTextIsOn == true ? .bold : .regular,
+                                                    fontSize: viewModel.fontSize)))
         }
         
-        if  model.appearance != nil {
-            if model.appearance?.isSelected == true {
+        if let appearance = model.appearance {
+            viewModel.checkIfThemeIsStored(with: selectedTheme,
+                                           themeName: appearance.name,
+                                           option: appearance)
+            if appearance.isSelected == true {
                 changeThemeSystem(from: model.appearance)
                 return AnyView(selectedViewConfiguration(with: model.appearance?.name ?? ""))
             }
@@ -77,15 +87,21 @@ struct DisplaySetting: View {
         
         if let textSection = model.text {
             if textSection.systemSizeToggle == true {
-                return AnyView(toggleSizeViewConfiguration(with: textSection.name, isOn: $toggleSizeIsOn))
+                return AnyView(toggleSizeViewConfiguration(with: textSection.name,
+                                                           isOn: viewModel.$toggleSizeIsOn))
             }
             if textSection.boldTextToggle == true {
-                return AnyView(toggleViewConfiguration(with: textSection.name, isOn: $toggleBoldTextIsOn))
+                return AnyView(toggleViewConfiguration(with: textSection.name,
+                                                       isOn: viewModel.$toggleBoldTextIsOn))
             }
         }
         
         if let decimal = model.decimal {
+            viewModel.checkIfDecimalWasStored(with: decimalConfigurationSaved,
+                                              decimalConfiguration: decimal.name,
+                                              option: decimal)
             if decimal.isSelected == true {
+                handleDecimal(from: decimal)
                 return AnyView(selectedViewConfiguration(with: decimal.name))
             }
             return AnyView(Text(decimal.name))
@@ -115,16 +131,16 @@ struct DisplaySetting: View {
             Toggle(isOn: isOn) {
                 Text(name)
             }
-            .onChange(of: toggleSizeIsOn, perform: { value in
+            .onChange(of: viewModel.toggleSizeIsOn, perform: { value in
                 if value == false {
-                    textSize = 14
+                    viewModel.fontSize = 14
                 }
             })
-            if toggleSizeIsOn == true {
+            if viewModel.toggleSizeIsOn == true {
                 HStack {
                     Text("A")
                         .font(.system(size: 10))
-                    Slider(value: $textSize, in: 6...32, step: 5)
+                    Slider(value: viewModel.$fontSize, in: 6...32, step: 5)
                         .padding()
                         .accentColor(Color.green)
                     Text("A")
@@ -135,7 +151,6 @@ struct DisplaySetting: View {
     }
     
     func changeThemeSystem(from option: DisplaySettingAppeareance?) {
-        
         switch DisplaySettingViewModel.Options.Appeareance(rawValue: option?.name ?? "") {
         case .system:
             UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = UITraitCollection().userInterfaceStyle
@@ -151,12 +166,17 @@ struct DisplaySetting: View {
     }
     
     func handleDecimal(from optionValue: DisplaySettingDecimal) {
-        optionValue.isSelected = true
         switch DisplaySettingViewModel.Options.Decimal.init(rawValue: optionValue.name) {
-        case .two: amount.minimunDecimal = .two
-        case .three: amount.minimunDecimal = .three
-        case .four: amount.minimunDecimal = .four
-        case .five: amount.minimunDecimal = .five
+        case .noDigitMax:
+            viewModel.amount.minimunDecimal = .zero
+        case .two:
+            viewModel.amount.minimunDecimal = .two
+        case .three:
+            viewModel.amount.minimunDecimal = .three
+        case .four:
+            viewModel.amount.minimunDecimal = .four
+        case .five:
+            viewModel.amount.minimunDecimal = .five
         default: break
         }
     }

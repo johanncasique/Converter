@@ -8,9 +8,15 @@
 import Foundation
 import SwiftUI
 
+
 class DisplaySettingViewModel: ObservableObject {
     
     @Published var decimalSetting = Options.Decimal.two
+    @ObservedObject var amount = Amount(value: 9756.89879)
+    @AppStorage("toggleSizeIsOn") var toggleSizeIsOn = false
+    @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false
+    @AppStorage("fontSize") var fontSize = 14.0
+    @AppStorage("isBold") var isBold = true
     
     enum Options {
         
@@ -31,6 +37,7 @@ class DisplaySettingViewModel: ObservableObject {
         }
         
         enum Decimal: String {
+            case noDigitMax = "No Digit Maximun"
             case two = "2 Digits"
             case three = "3 Digits"
             case four = "4 Digits"
@@ -39,6 +46,7 @@ class DisplaySettingViewModel: ObservableObject {
     }
     
     @Published var options: [DisplaySettingOptions] = {
+        
         return [DisplaySettingOptions(title: "Preview",
                                       options: [
                                         .init(currency: .init(currencyName: "CAD",
@@ -64,7 +72,7 @@ class DisplaySettingViewModel: ObservableObject {
                 
                 DisplaySettingOptions(title: "Maximum Number of Decimal Digits",
                                       options: [
-                                        .init(decimal: DisplaySettingDecimal(name: "No Digit Maximun", isSelected: true)),
+                                        .init(decimal: DisplaySettingDecimal(name: Options.Decimal.noDigitMax.rawValue, isSelected: true)),
                                         .init(decimal: DisplaySettingDecimal(name: Options.Decimal.two.rawValue, isSelected: false)),
                                         .init(decimal: DisplaySettingDecimal(name: Options.Decimal.three.rawValue, isSelected: false)),
                                         .init(decimal: DisplaySettingDecimal(name: Options.Decimal.four.rawValue, isSelected: false)),
@@ -74,7 +82,37 @@ class DisplaySettingViewModel: ObservableObject {
         
     }()
     
+    func checkIfThemeIsStored(with storedTheme: String, themeName: String, option: DisplaySettingAppeareance) {
+        if !storedTheme.isEmpty {
+            option.isSelected = false
+            if storedTheme == themeName {
+                option.isSelected = true
+            }
+        }
+    }
     
+    func checkIfDecimalWasStored(with storedDecimal: String, decimalConfiguration: String, option: DisplaySettingDecimal) {
+        if !storedDecimal.isEmpty {
+            option.isSelected = false
+            if storedDecimal == decimalConfiguration {
+                option.isSelected = true
+            }
+        }
+    }
+    
+    func clearSelection() {
+        options.forEach {
+            $0.options.forEach { option in
+                if let appearance = option.appearance {
+                    appearance.isSelected = false
+                }
+                
+                if let decimal = option.decimal {
+                    decimal.isSelected = false
+                }
+            }
+        }
+    }
 }
 
 struct DisplaySettingOptions: Identifiable {
@@ -114,7 +152,6 @@ class DisplaySettingAppeareance: ObservableObject, Identifiable {
 
 class DisplaySettingDecimal: ObservableObject, Identifiable {
     
-    
     let name: String
     let id = UUID()
     @Published var isSelected: Bool
@@ -137,7 +174,4 @@ class DisplaySettingText: ObservableObject, Identifiable {
         self.systemSizeToggle = systemSizeToggle
         self.boldTextToggle = boldTextToggle
     }
-    
-    
-    
 }
