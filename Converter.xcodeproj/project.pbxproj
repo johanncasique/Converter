@@ -15,6 +15,8 @@
 		87526B1A28805B9600B288AC /* DisplaySettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87526B1928805B9600B288AC /* DisplaySettingViewModel.swift */; };
 		8770A0BB286F145F002B625A /* 127.0.0.1.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8770A0BA286F145F002B625A /* 127.0.0.1.cer */; };
 		8770A0BC286F145F002B625A /* 127.0.0.1.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8770A0BA286F145F002B625A /* 127.0.0.1.cer */; };
+		8777D65C28FF3AA700601A5E /* UnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8777D65B28FF3AA700601A5E /* UnitsView.swift */; };
+		8777D65F29071C0D00601A5E /* UnitsCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */; };
 		87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D7287F643700F22D8A /* SettingsView.swift */; };
 		87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */; };
 		87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C5D206287889B600E8ED05 /* CalculatorView.swift */; };
@@ -67,6 +69,8 @@
 		87526B172880525B00B288AC /* DisplaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySetting.swift; sourceTree = "<group>"; };
 		87526B1928805B9600B288AC /* DisplaySettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingViewModel.swift; sourceTree = "<group>"; };
 		8770A0BA286F145F002B625A /* 127.0.0.1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 127.0.0.1.cer; sourceTree = "<group>"; };
+		8777D65B28FF3AA700601A5E /* UnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsView.swift; sourceTree = "<group>"; };
+		8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsCalculatorView.swift; sourceTree = "<group>"; };
 		87B1D4D7287F643700F22D8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		87C5D206287889B600E8ED05 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
@@ -158,6 +162,22 @@
 			path = DisplaySetting;
 			sourceTree = "<group>";
 		};
+		8777D65828FF389800601A5E /* UnitsScreens */ = {
+			isa = PBXGroup;
+			children = (
+				8777D65B28FF3AA700601A5E /* UnitsView.swift */,
+			);
+			path = UnitsScreens;
+			sourceTree = "<group>";
+		};
+		8777D65D29071BEF00601A5E /* UnitsCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */,
+			);
+			path = UnitsCalculator;
+			sourceTree = "<group>";
+		};
 		87B1D4D6287F642000F22D8A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +266,8 @@
 		87C60D412702699E003560A4 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				8777D65D29071BEF00601A5E /* UnitsCalculator */,
+				8777D65828FF389800601A5E /* UnitsScreens */,
 				87B1D4D6287F642000F22D8A /* Settings */,
 				87C5D2052878892F00E8ED05 /* Calculator */,
 				87FBB5E7283C2106004D5494 /* AddCurrency */,
@@ -466,6 +488,7 @@
 			files = (
 				87C60D4627026A35003560A4 /* CurrencyModel.swift in Sources */,
 				87C60D4D270393BA003560A4 /* HomeViewModel.swift in Sources */,
+				8777D65C28FF3AA700601A5E /* UnitsView.swift in Sources */,
 				87FBB5EC283CB913004D5494 /* CountryModel.swift in Sources */,
 				1E322FFF28A65DD5004BC2B0 /* CurrencyView.swift in Sources */,
 				87C60D5027086518003560A4 /* Documentation.docc in Sources */,
@@ -480,6 +503,7 @@
 				1E32300228A68F0A004BC2B0 /* CurrencyViewModel.swift in Sources */,
 				87526B182880525B00B288AC /* DisplaySetting.swift in Sources */,
 				87FBB5E9283C2122004D5494 /* AddCurrencyView.swift in Sources */,
+				8777D65F29071C0D00601A5E /* UnitsCalculatorView.swift in Sources */,
 				871108EB286DD28A00378AE3 /* UIApplicationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,6 +674,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Converter (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N2JV3GA9RV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Converter--iOS--Info.plist";
@@ -659,7 +684,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -683,6 +708,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Converter (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N2JV3GA9RV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Converter--iOS--Info.plist";
@@ -692,7 +718,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
