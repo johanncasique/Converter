@@ -28,16 +28,6 @@ struct AddCurrencyView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HStack() {
-                    Picker("options", selection: $typeOfCurrency) {
-                        Text("All").tag(CurrencyOptions.All)
-                        Text("Crypto").tag(CurrencyOptions.Crypto)
-                        Text("Metal").tag(CurrencyOptions.Metal)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding()
-                }
-                Spacer()
                 List($countries.listSorted, id: \.letter, selection: $multiSelection) { $country in
                     
                     Section(header: Text(String(country.letter))) {
@@ -52,12 +42,15 @@ struct AddCurrencyView: View {
                 .toolbar {
                     AnyView(Button(action: onAdd) { Text("Done")})
                 }
+                .searchable(text: $queryString,
+                            prompt: "Currency, Country, Regions or Code")
+                .onSubmit(of: .search) {
+                    print(queryString)
+                }
             }
             .navigationTitle("Add Currency")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .searchable(text: $queryString,
-                    prompt: "Currency, Country, Regions or Code")
     }
     
     func onAdd() {
