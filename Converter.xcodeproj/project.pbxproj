@@ -17,6 +17,9 @@
 		8770A0BC286F145F002B625A /* 127.0.0.1.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8770A0BA286F145F002B625A /* 127.0.0.1.cer */; };
 		8777D65C28FF3AA700601A5E /* UnitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8777D65B28FF3AA700601A5E /* UnitsView.swift */; };
 		8777D65F29071C0D00601A5E /* UnitsCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */; };
+		878FA846293FD7B20070BB73 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA845293FD7B20070BB73 /* HomeConfigurator.swift */; };
+		878FA848293FD7C30070BB73 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA847293FD7C30070BB73 /* HomeRouter.swift */; };
+		878FA84A293FDA700070BB73 /* CurrenciesDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA849293FDA700070BB73 /* CurrenciesDataSourceRepository.swift */; };
 		87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D7287F643700F22D8A /* SettingsView.swift */; };
 		87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */; };
 		87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C5D206287889B600E8ED05 /* CalculatorView.swift */; };
@@ -71,6 +74,9 @@
 		8770A0BA286F145F002B625A /* 127.0.0.1.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 127.0.0.1.cer; sourceTree = "<group>"; };
 		8777D65B28FF3AA700601A5E /* UnitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsView.swift; sourceTree = "<group>"; };
 		8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsCalculatorView.swift; sourceTree = "<group>"; };
+		878FA845293FD7B20070BB73 /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
+		878FA847293FD7C30070BB73 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		878FA849293FDA700070BB73 /* CurrenciesDataSourceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesDataSourceRepository.swift; sourceTree = "<group>"; };
 		87B1D4D7287F643700F22D8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		87C5D206287889B600E8ED05 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
@@ -178,6 +184,30 @@
 			path = UnitsCalculator;
 			sourceTree = "<group>";
 		};
+		878FA843293FD6030070BB73 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				878FA849293FDA700070BB73 /* CurrenciesDataSourceRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		878FA844293FD6420070BB73 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				87C60D0727007980003560A4 /* Assets.xcassets */,
+				87FBB5EE283CC390004D5494 /* CountryData.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		878FA84B293FE1620070BB73 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		87B1D4D6287F642000F22D8A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +233,7 @@
 				8770A0BA286F145F002B625A /* 127.0.0.1.cer */,
 				871108ED286EF6ED00378AE3 /* Converter--iOS--Info.plist */,
 				87C60D4E27065515003560A4 /* Converter (iOS).entitlements */,
-				87C60D042700797E003560A4 /* Shared */,
+				87C60D042700797E003560A4 /* Source */,
 				87C60D1327007981003560A4 /* macOS */,
 				87C60D1C27007981003560A4 /* Tests iOS */,
 				87C60D2827007981003560A4 /* Tests macOS */,
@@ -211,19 +241,21 @@
 			);
 			sourceTree = "<group>";
 		};
-		87C60D042700797E003560A4 /* Shared */ = {
+		87C60D042700797E003560A4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				1E322FFD28A65DC1004BC2B0 /* RusableViews */,
-				87C60D43270269B6003560A4 /* Library */,
-				87C60D412702699E003560A4 /* Screens */,
+				878FA84B293FE1620070BB73 /* Utilities */,
 				87C60D052700797E003560A4 /* ConverterApp.swift */,
-				87C60D0727007980003560A4 /* Assets.xcassets */,
-				87FBB5EE283CC390004D5494 /* CountryData.json */,
-				87C60D4F27086518003560A4 /* Documentation.docc */,
 				871108EA286DD28A00378AE3 /* UIApplicationDelegate.swift */,
+				1E322FFD28A65DC1004BC2B0 /* RusableViews */,
+				87C60D4727026C03003560A4 /* Networking */,
+				878FA843293FD6030070BB73 /* Repositories */,
+				87C60D44270269C2003560A4 /* Models */,
+				87C60D412702699E003560A4 /* Views */,
+				878FA844293FD6420070BB73 /* Resources */,
+				87C60D4F27086518003560A4 /* Documentation.docc */,
 			);
-			path = Shared;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		87C60D0D27007980003560A4 /* Products */ = {
@@ -263,7 +295,7 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
-		87C60D412702699E003560A4 /* Screens */ = {
+		87C60D412702699E003560A4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				8777D65D29071BEF00601A5E /* UnitsCalculator */,
@@ -273,7 +305,7 @@
 				87FBB5E7283C2106004D5494 /* AddCurrency */,
 				87C60D42270269AD003560A4 /* Home */,
 			);
-			path = Screens;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		87C60D42270269AD003560A4 /* Home */ = {
@@ -281,18 +313,10 @@
 			children = (
 				87C60D062700797E003560A4 /* HomeView.swift */,
 				87C60D4C270393BA003560A4 /* HomeViewModel.swift */,
+				878FA845293FD7B20070BB73 /* HomeConfigurator.swift */,
+				878FA847293FD7C30070BB73 /* HomeRouter.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		87C60D43270269B6003560A4 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				87C60D4A27026CEB003560A4 /* Config.swift */,
-				87C60D4727026C03003560A4 /* Services */,
-				87C60D44270269C2003560A4 /* Models */,
-			);
-			path = Library;
 			sourceTree = "<group>";
 		};
 		87C60D44270269C2003560A4 /* Models */ = {
@@ -304,12 +328,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		87C60D4727026C03003560A4 /* Services */ = {
+		87C60D4727026C03003560A4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				87C60D4A27026CEB003560A4 /* Config.swift */,
 				87C60D4827026C16003560A4 /* Service.swift */,
 			);
-			path = Services;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		87FBB5E7283C2106004D5494 /* AddCurrency */ = {
@@ -489,18 +514,21 @@
 				87C60D4627026A35003560A4 /* CurrencyModel.swift in Sources */,
 				87C60D4D270393BA003560A4 /* HomeViewModel.swift in Sources */,
 				8777D65C28FF3AA700601A5E /* UnitsView.swift in Sources */,
+				878FA84A293FDA700070BB73 /* CurrenciesDataSourceRepository.swift in Sources */,
 				87FBB5EC283CB913004D5494 /* CountryModel.swift in Sources */,
 				1E322FFF28A65DD5004BC2B0 /* CurrencyView.swift in Sources */,
 				87C60D5027086518003560A4 /* Documentation.docc in Sources */,
 				87C60D4927026C16003560A4 /* Service.swift in Sources */,
 				87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */,
 				87C60D4B27026CEB003560A4 /* Config.swift in Sources */,
+				878FA846293FD7B20070BB73 /* HomeConfigurator.swift in Sources */,
 				87C60D2F27007981003560A4 /* HomeView.swift in Sources */,
 				87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */,
 				87526B1A28805B9600B288AC /* DisplaySettingViewModel.swift in Sources */,
 				87C60D2D27007981003560A4 /* ConverterApp.swift in Sources */,
 				87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */,
 				1E32300228A68F0A004BC2B0 /* CurrencyViewModel.swift in Sources */,
+				878FA848293FD7C30070BB73 /* HomeRouter.swift in Sources */,
 				87526B182880525B00B288AC /* DisplaySetting.swift in Sources */,
 				87FBB5E9283C2122004D5494 /* AddCurrencyView.swift in Sources */,
 				8777D65F29071C0D00601A5E /* UnitsCalculatorView.swift in Sources */,

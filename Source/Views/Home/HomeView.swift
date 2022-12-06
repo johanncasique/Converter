@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject private var viewModel = HomeViewModel()
+    @ObservedObject var viewModel: HomeViewModel
     @ObservedObject private var countries = Countries()
     
     @State private var isShowingAddCountry = false
@@ -104,8 +104,10 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            HomeView()
-            HomeView()
+            HomeView(viewModel: .init(router: .init(),
+                                      repository: .init()))
+            HomeView(viewModel: .init(router: .init(),
+                                      repository: .init()))
                 .preferredColorScheme(.dark)
         }
     }

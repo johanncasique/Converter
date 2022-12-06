@@ -15,14 +15,23 @@ class HomeViewModel: ObservableObject {
     
     @Published private(set) var currencys = [Currency]()
     let service = CurrencyService()
+    private let router: HomeRouter
+    private let repository: CurrenciesDataSourceRepository
     
-    init() {
-        Task { try? await service.fetchCurrencies() }
+    
+    init(router: HomeRouter, repository: CurrenciesDataSourceRepository) {
+        self.router = router
+        self.repository = repository
+        //Task { try? await service.fetchCurrencies() }
     }
+    
+    
+    
+    
     
     private func fetchCurrency() async {
         if var currencies = try? await
-            service.fetchCurrencies() {
+            repository.fetchCurrencies() {
             withAnimation {
                 let currencyKeys = currencies.keys
                 var currencyArray = [Currency]()
