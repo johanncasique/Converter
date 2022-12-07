@@ -12,30 +12,12 @@ struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     @ObservedObject private var countries = Countries()
     
-    @State private var isShowingAddCountry = false
-    @State private var selectionCountry = [CountryModel]()
-    @State private var isShowingCalculator = false
-    @State private var customAmount = ""
-    @AppStorage("fontSize") private var fontSize = 0.0
-    @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false
-    
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(selectionCountry, id: \.self) { i in
-                        
-                        Button {
-                            isShowingCalculator.toggle()
-                        } label: {
-                            viewModel(with: i)
-                            .padding(4)
-                            .listRowSeparator(.hidden)
-                        }
-                        .sheet(isPresented: $isShowingCalculator) {
-                            CalculatorView(isPresented: $isShowingCalculator,
-                                           customAmount: $customAmount)
-                        }
+                    ForEach(viewModel.selectionCountry, id: \.self) { countrySelected in
+                        presentCalculatorButton(with: countrySelected)
                     }
                 }
                 .navigationTitle(Text("Currency"))
@@ -64,13 +46,13 @@ struct HomeView: View {
     
     private var toolBarItemView: some View {
         HStack {
-            Button(action: {
-                isShowingAddCountry = true }) {
+            Button(action: { viewModel.isShowingAddCountry.toggle() }) {
                 Image(systemName: "plus")
             }
-                .sheet(isPresented: $isShowingAddCountry) {
-                    AddCurrencyView(isPresented: $isShowingAddCountry, countrySelection: $selectionCountry)
-                }
+            .sheet(isPresented: $viewModel.isShowingAddCountry) {
+                    addCurrencyView()
+                    .navigationBarTitle("Agregar moneda")
+            }
             Spacer()
             Button("Edit") {
                 print("Click button")
@@ -78,26 +60,35 @@ struct HomeView: View {
         }.padding(.horizontal, -5)
     }
     
-    func selectedCountriesData() -> String {
-        return "\(selectionCountry.count)"
+    func presentCalculatorButton(with country: CountryModel) -> some View {
+        Button {
+            viewModel.isShowingCalculator.toggle()
+        } label: {
+            currencyView(with: country)
+            .padding(4)
+            .listRowSeparator(.hidden)
+        }
+        .sheet(isPresented: $viewModel.isShowingCalculator) {
+            addCalculatorView()
+        }
     }
     
-    func viewModel(with model: CountryModel) -> some View {
-        
-        let currency = Currency(currencyName: model.name,
-                                rate: "1",
-                                rateForAmount: "1",
-                                imageName: model.code,
-                                countryCode: model.code)
-        
-        let amount = Amount(value: Double(customAmount) ?? 0)
-        
-        return CurrencyView(with: .init(isSelectedAmount: true,
-                                        showAmount: true,
-                                        currency: currency,
-                                        amount: amount,
-                                        isBold: toggleBoldTextIsOn == true ? .bold : .regular,
-                                        fontSize: fontSize))
+    private func addCurrencyView() -> some View {
+        AddCurrencyView(isPresented: $viewModel.isShowingAddCountry,
+                        countrySelection: $viewModel.selectionCountry)
+    }
+    
+    private func addCalculatorView() -> some View {
+        CalculatorView(isPresented: $viewModel.isShowingCalculator,
+                       customAmount: $viewModel.amountSelected)
+    }
+    
+    func selectedCountriesData() -> String {
+        return "\(viewModel.selectionCountry.count)"
+    }
+    
+    func currencyView(with model: CountryModel) -> some View {
+        CurrencyView(with: viewModel.currencyViewModel(with: model))
     }
 }
 
