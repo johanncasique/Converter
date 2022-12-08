@@ -9,10 +9,8 @@ import SwiftUI
 
 struct HomeConfigurator {
     @MainActor func setup() -> some View {
-        let router = HomeRouter()
-        let repository = CurrenciesDataSourceRepository()
-        let viewModel = HomeViewModel(router: router,
-                                      repository: repository)
+        let repository = CurrenciesDataSourceRepository(configure: AppConfig.apiConfig())
+        let viewModel = HomeViewModel(repository: repository)
         return HomeView(viewModel: viewModel)
     }
 }

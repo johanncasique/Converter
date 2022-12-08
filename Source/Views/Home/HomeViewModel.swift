@@ -14,23 +14,21 @@ import UIKit
 class HomeViewModel: ObservableObject {
     
     //@Published private(set) var currencys = [Currency]()
-    @Published var viewState: ViewState = .none
+    @Published var viewState: ViewState = .loading
     @Published var isShowingCalculator = false
     @Published var amountSelected = ""
     @Published var isShowingAddCountry = false
     @Published var selectionCountry = [CountryModel]()
-    let service = CurrencyService()
-    private let router: HomeRouter
     private let repository: CurrenciesDataSourceRepository
+    private var exchangeDTO: ExchangeRateDTO? = nil
     
     @AppStorage("fontSize") private var fontSize = 0.0
     @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false
     
     
-    init(router: HomeRouter, repository: CurrenciesDataSourceRepository) {
-        self.router = router
+    init(repository: CurrenciesDataSourceRepository) {
         self.repository = repository
-        //Task { try? await service.fetchCurrencies() }
+        Task { await fetchCurrency() }
     }
     
     enum ViewState {
@@ -38,6 +36,7 @@ class HomeViewModel: ObservableObject {
         case loading
         case loaded
         case error(HomeViewModelError)
+        
     }
     
     enum HomeViewModelError: Error {
@@ -45,23 +44,42 @@ class HomeViewModel: ObservableObject {
     }
     
     
-    private func fetchCurrency() async {
-        if var currencies = try? await repository.fetchCurrencies() {
-            withAnimation {
-                var currencyArray = [Currency]()
-                for (key, _) in currencies {
-                    currencies[key]?.countryCode = key
-                    if let currency = currencies[key] {
-                        currencyArray.append(currency)
-                    }
-                }
-                //self.currencys = currencyArray
-                print("CURRENCY ARRAY \(currencyArray)")
-                viewState = .loaded
-            }
-        } else {
+    func fetchCurrency() async {
+        do {
+            exchangeDTO = try await repository.fetchCurrencies()
+            print("CURRENCY ARRAY \(exchangeDTO)")
+            fireNextFetch()
+            viewState = .loaded
+        } catch {
+            print("ERROR currencies \(error)")
             viewState = .error(.currencyNotFound)
         }
+//        if var currencies = try? await repository.fetchCurrencies() {
+//            
+//                var currencyArray = [Currency]()
+////                for (key, _) in currencies {
+////                    currencies[key]?.countryCode = key
+////                    if let currency = currencies[key] {
+////                        currencyArray.append(currency)
+////                    }
+////                }
+//                //self.currencys = currencyArray
+//                
+//            
+//        } else {
+//            viewState = .error(.currencyNotFound)
+//        }
+    }
+    
+    private func fireNextFetch() {
+        guard let exchangeDTO = self.exchangeDTO else {
+            fatalError()
+        }
+        let timeInterval = exchangeDTO.updateInformation.timeNextUpdate.timeIntervalSinceNow
+        Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { _ in
+            Task { await self.fetchCurrency() }
+        }
+        
     }
     
     func currencyViewModel(with model: CountryModel) -> CurrencyViewModel {

@@ -11,26 +11,39 @@ struct HomeView: View {
     
     @ObservedObject var viewModel: HomeViewModel
     @ObservedObject private var countries = Countries()
+    let slashPlusImage = "minus.slash.plus"
     
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    ForEach(viewModel.selectionCountry, id: \.self) { countrySelected in
-                        presentCalculatorButton(with: countrySelected)
-                    }
-                }
-                .navigationTitle(Text("Currency"))
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        toolBarItemView
-                    }
-                }
+            switch viewModel.viewState {
+            case .loading:
+                Text("Loading")
+            case .loaded:
+                mainView
+            case .error, .none:
+                Text("ERROR")
             }
         }
         .navigationViewStyle(.stack)
         .toolbar {
-            AnyView(Image(systemName: "minus.slash.plus"))
+            AnyView(Image(systemName: slashPlusImage))
+        }
+    }
+    
+    
+    private var mainView: some View {
+        VStack {
+            List {
+                ForEach(viewModel.selectionCountry, id: \.self) { countrySelected in
+                    presentCalculatorButton(with: countrySelected)
+                }
+            }
+            .navigationTitle(Text("Currency"))
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    toolBarItemView
+                }
+            }
         }
     }
     
@@ -95,10 +108,8 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            HomeView(viewModel: .init(router: .init(),
-                                      repository: .init()))
-            HomeView(viewModel: .init(router: .init(),
-                                      repository: .init()))
+            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
+            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
                 .preferredColorScheme(.dark)
         }
     }
