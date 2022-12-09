@@ -34,7 +34,7 @@ struct HomeView: View {
     private var mainView: some View {
         VStack {
             List {
-                ForEach(viewModel.selectionCountry, id: \.self) { countrySelected in
+                ForEach(viewModel.countrySelected, id: \.self) { countrySelected in
                     presentCalculatorButton(with: countrySelected)
                 }
             }
@@ -88,7 +88,7 @@ struct HomeView: View {
     
     private func addCurrencyView() -> some View {
         AddCurrencyView(isPresented: $viewModel.isShowingAddCountry,
-                        countrySelection: $viewModel.selectionCountry)
+                        countrySelection: $viewModel.countrySelected)
     }
     
     private func addCalculatorView() -> some View {
@@ -97,7 +97,7 @@ struct HomeView: View {
     }
     
     func selectedCountriesData() -> String {
-        return "\(viewModel.selectionCountry.count)"
+        return "\(viewModel.countrySelected.count)"
     }
     
     func currencyView(with model: CountryModel) -> some View {

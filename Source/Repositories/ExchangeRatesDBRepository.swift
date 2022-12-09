@@ -6,28 +6,31 @@
 //
 
 import Foundation
-protocol ExchangeRatesDBRepositoryProtocol {
-    func saveRates(from dto: ExchangeRateDTO) throws
-    func getRatesFromDB() throws -> ExchangeRateDTO
+protocol ExchangeRatesDBRepositoryProtocol: UserDefaultStorable {
+    func saveRates(from dto: ExchangeRatesDTO) throws
+    func getRatesFromDB() throws -> ExchangeRatesDTO
 }
 
 class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
+    
+    typealias DataType = Data
+    var key: String = "exchangeRateDTO"
     
     enum ExchangeRatesDBError: Error {
         case failedToSave
         case failedToGetFromDB
     }
 
-    func saveRates(from dto: ExchangeRateDTO) throws {
-        let data = try dto.encodeToData()
-        try UserDefaults.standard.save(exchangeDTO: data)
+    func saveRates(from dto: ExchangeRatesDTO) throws {
+        let data = try dto.encode()
+        try save(value: data)
     }
     
-    func getRatesFromDB() throws -> ExchangeRateDTO {
-        guard let data = UserDefaults.standard.getConversionRatesAndUpdateInformation() else {
+    func getRatesFromDB() throws -> ExchangeRatesDTO {
+        guard let data = try load() else {
             throw ExchangeRatesDBError.failedToGetFromDB
         }
-        return try ExchangeRateDTO.decode(from: data)
+        return try ExchangeRatesDTO.decode(from: data)
     }
 }
 
@@ -39,6 +42,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: "exchangeRateDTO")
+        }
+    }
+    
+    var countries: Data? {
+        get {
+            return data(forKey: "countries")
+        }
+        set {
+            set(newValue, forKey: "countries")
         }
     }
     

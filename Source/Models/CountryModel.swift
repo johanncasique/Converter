@@ -56,7 +56,7 @@ class Countries: ObservableObject, Identifiable {
     }
 }
 
-struct CountryModel: Decodable, Identifiable, Hashable {
+struct CountryModel: Codable, Identifiable, Hashable {
     
     let name, dialCode, code: String
     let id = UUID()
@@ -65,5 +65,15 @@ struct CountryModel: Decodable, Identifiable, Hashable {
         case name
         case dialCode = "dial_code"
         case code
+    }
+    
+    func encode() throws -> Data {
+        let encoder = JSONEncoder()
+        return try encoder.encode(self)
+    }
+    
+    static func decode(from data: Data) throws -> CountryModel {
+        let decoder = JSONDecoder()
+        return try decoder.decode(CountryModel.self, from: data)
     }
 }

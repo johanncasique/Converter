@@ -17,10 +17,10 @@ class HomeViewModel: ObservableObject {
     @Published var isShowingCalculator = false
     @Published var amountSelected = ""
     @Published var isShowingAddCountry = false
-    @Published var selectionCountry = [CountryModel]()
+    @Published var countrySelected = [CountryModel]()
     private let repository: ExchangeRatesDataSourceRepository
     private let dbRepository: ExchangeRatesDBRepository
-    private var exchangeDTO: ExchangeRateDTO? = nil
+    private var exchangeDTO: ExchangeRatesDTO? = nil
     
     @AppStorage("fontSize") private var fontSize = 0.0
     @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false
@@ -49,6 +49,9 @@ class HomeViewModel: ObservableObject {
             return
         }
         
+        if let country = try? CountryDBRepository().getCountriesFromDB() {
+            print("COUNTRY SAVED \(country)")
+        }
         let currenTime = Date()
         if currenTime >= dto.updateInformation.timeNextUpdate {
             debugPrint("-------Fetch from service")

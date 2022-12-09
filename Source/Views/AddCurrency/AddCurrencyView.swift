@@ -63,6 +63,11 @@ struct AddCurrencyView: View {
         isPresented.toggle()
         countries.selectedCountries.append(contentsOf: filterCountries)
         countrySelection.append(contentsOf: filterCountries)
+        do {
+            try CountryDBRepository().saveCountries(from: countrySelection)
+        } catch {
+            fatalError()
+        }
     }
     
     func showCountry(with model: CountryModel) -> some View {

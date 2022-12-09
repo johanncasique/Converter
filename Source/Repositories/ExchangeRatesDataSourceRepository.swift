@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ExchangeRatesDataSourceProtocol {
-    func fetchCurrencies() async throws -> ExchangeRateDTO
+    func fetchCurrencies() async throws -> ExchangeRatesDTO
     var configure: NetworkConfigurable { get }
 }
 
@@ -20,7 +20,7 @@ class ExchangeRatesDataSourceRepository: ExchangeRatesDataSourceProtocol {
         self.configure = configure
     }
     
-    func fetchCurrencies() async throws -> ExchangeRateDTO {
+    func fetchCurrencies() async throws -> ExchangeRatesDTO {
         
         let exchanche = try await HTTPClient().request(APIEndpoint.getExchangeRate(),
                                                        configure: configure)
