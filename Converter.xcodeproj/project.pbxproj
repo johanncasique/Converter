@@ -19,7 +19,7 @@
 		8777D65F29071C0D00601A5E /* UnitsCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */; };
 		878FA846293FD7B20070BB73 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA845293FD7B20070BB73 /* HomeConfigurator.swift */; };
 		878FA848293FD7C30070BB73 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA847293FD7C30070BB73 /* HomeRouter.swift */; };
-		878FA84A293FDA700070BB73 /* CurrenciesDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA849293FDA700070BB73 /* CurrenciesDataSourceRepository.swift */; };
+		878FA84A293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA849293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift */; };
 		87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D7287F643700F22D8A /* SettingsView.swift */; };
 		87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */; };
 		87B35378294135E000254403 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B35377294135E000254403 /* NetworkConfiguration.swift */; };
@@ -27,6 +27,7 @@
 		87B3537C2942166A00254403 /* APIEnpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B3537B2942166A00254403 /* APIEnpoint.swift */; };
 		87B3537E2942466E00254403 /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B3537D2942466E00254403 /* Exchange.swift */; };
 		87B35381294287A500254403 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B35380294287A500254403 /* DateExtension.swift */; };
+		87B353832943460F00254403 /* ExchangeRatesDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B353822943460F00254403 /* ExchangeRatesDBRepository.swift */; };
 		87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C5D206287889B600E8ED05 /* CalculatorView.swift */; };
 		87C60D1E27007981003560A4 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D1D27007981003560A4 /* Tests_iOS.swift */; };
 		87C60D2027007981003560A4 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D1F27007981003560A4 /* Tests_iOSLaunchTests.swift */; };
@@ -81,7 +82,7 @@
 		8777D65E29071C0D00601A5E /* UnitsCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitsCalculatorView.swift; sourceTree = "<group>"; };
 		878FA845293FD7B20070BB73 /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
 		878FA847293FD7C30070BB73 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
-		878FA849293FDA700070BB73 /* CurrenciesDataSourceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesDataSourceRepository.swift; sourceTree = "<group>"; };
+		878FA849293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesDataSourceRepository.swift; sourceTree = "<group>"; };
 		87B1D4D7287F643700F22D8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		87B35377294135E000254403 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		87B3537B2942166A00254403 /* APIEnpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnpoint.swift; sourceTree = "<group>"; };
 		87B3537D2942466E00254403 /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
 		87B35380294287A500254403 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		87B353822943460F00254403 /* ExchangeRatesDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesDBRepository.swift; sourceTree = "<group>"; };
 		87C5D206287889B600E8ED05 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		87C60D052700797E003560A4 /* ConverterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterApp.swift; sourceTree = "<group>"; };
 		87C60D062700797E003560A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -197,7 +199,8 @@
 		878FA843293FD6030070BB73 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				878FA849293FDA700070BB73 /* CurrenciesDataSourceRepository.swift */,
+				878FA849293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift */,
+				87B353822943460F00254403 /* ExchangeRatesDBRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -536,8 +539,9 @@
 			files = (
 				87C60D4627026A35003560A4 /* CurrencyModel.swift in Sources */,
 				87C60D4D270393BA003560A4 /* HomeViewModel.swift in Sources */,
+				87B353832943460F00254403 /* ExchangeRatesDBRepository.swift in Sources */,
 				8777D65C28FF3AA700601A5E /* UnitsView.swift in Sources */,
-				878FA84A293FDA700070BB73 /* CurrenciesDataSourceRepository.swift in Sources */,
+				878FA84A293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift in Sources */,
 				87B3537E2942466E00254403 /* Exchange.swift in Sources */,
 				87B3537C2942166A00254403 /* APIEnpoint.swift in Sources */,
 				87FBB5EC283CB913004D5494 /* CountryModel.swift in Sources */,

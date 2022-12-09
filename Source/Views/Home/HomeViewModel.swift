@@ -13,22 +13,23 @@ import UIKit
 @MainActor
 class HomeViewModel: ObservableObject {
     
-    //@Published private(set) var currencys = [Currency]()
     @Published var viewState: ViewState = .loading
     @Published var isShowingCalculator = false
     @Published var amountSelected = ""
     @Published var isShowingAddCountry = false
     @Published var selectionCountry = [CountryModel]()
-    private let repository: CurrenciesDataSourceRepository
+    private let repository: ExchangeRatesDataSourceRepository
+    private let dbRepository: ExchangeRatesDBRepository
     private var exchangeDTO: ExchangeRateDTO? = nil
     
     @AppStorage("fontSize") private var fontSize = 0.0
     @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false
     
     
-    init(repository: CurrenciesDataSourceRepository) {
+    init(repository: ExchangeRatesDataSourceRepository, dbRepository: ExchangeRatesDBRepository) {
         self.repository = repository
-        Task { await fetchCurrency() }
+        self.dbRepository = dbRepository
+        checkDBRepositoryAndFetchCurrency()
     }
     
     enum ViewState {
@@ -36,18 +37,38 @@ class HomeViewModel: ObservableObject {
         case loading
         case loaded
         case error(HomeViewModelError)
-        
     }
     
     enum HomeViewModelError: Error {
         case currencyNotFound
     }
     
+    private func checkDBRepositoryAndFetchCurrency() {
+        guard let dto = try? dbRepository.getRatesFromDB() else {
+            Task { await fetchCurrency() }
+            return
+        }
+        
+        let currenTime = Date()
+        if currenTime >= dto.updateInformation.timeNextUpdate {
+            debugPrint("-------Fetch from service")
+            Task { await fetchCurrency() }
+        } else {
+            debugPrint("-------Fetch from DB \(dto)")
+            exchangeDTO = dto
+            viewState = .loaded
+        }
+    }
+    
     
     func fetchCurrency() async {
         do {
             exchangeDTO = try await repository.fetchCurrencies()
-            print("CURRENCY ARRAY \(exchangeDTO)")
+            guard let dto = exchangeDTO else {
+                viewState = .error(.currencyNotFound)
+                return
+            }
+            try dbRepository.saveRates(from: dto)
             fireNextFetch()
             viewState = .loaded
         } catch {

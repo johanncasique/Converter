@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - ExchangeRate
-struct ExchangeRateDTO {
+struct ExchangeRateDTO: Codable {
     let convertionRates: [String: Double]
     let updateInformation: UpdateInformation
     
@@ -16,7 +16,23 @@ struct ExchangeRateDTO {
         self.convertionRates = exchangeRateDO.conversionRates
         self.updateInformation = UpdateInformation(from: exchangeRateDO)
     }
+    
+    func encodeToData() throws -> Data {
+        do {
+            let encoder = JSONEncoder()
+            return try encoder.encode(self)
+        } catch {
+            throw error
+        }
+    }
+    
+    static func decode(from data: Data) throws -> ExchangeRateDTO {
+        let decoder = JSONDecoder()
+        return try decoder.decode(ExchangeRateDTO.self, from: data)
+    }
 }
+
+
 
 struct ExchangeRateDO: Codable {
     let result: String
@@ -43,7 +59,7 @@ struct ExchangeRateDO: Codable {
     }
 }
 
-struct UpdateInformation {
+struct UpdateInformation: Codable {
     var timeLastUpdate: Date
     var timeLastUpdateString: String
     var timeNextUpdate: Date

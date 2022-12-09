@@ -105,12 +105,12 @@ struct HomeView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
-            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
-                .preferredColorScheme(.dark)
-        }
-    }
-} 
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
+//            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
+//                .preferredColorScheme(.dark)
+//        }
+//    }
+//} 

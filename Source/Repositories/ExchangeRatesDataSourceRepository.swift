@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol CurrenciesDataSourceRepositoryProtocol {
+protocol ExchangeRatesDataSourceProtocol {
     func fetchCurrencies() async throws -> ExchangeRateDTO
     var configure: NetworkConfigurable { get }
 }
 
-class CurrenciesDataSourceRepository: CurrenciesDataSourceRepositoryProtocol {
+class ExchangeRatesDataSourceRepository: ExchangeRatesDataSourceProtocol {
         
     var configure: NetworkConfigurable
     
