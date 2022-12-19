@@ -44,6 +44,7 @@ class HomeViewModel: ObservableObject {
     }
     
     private func checkDBRepositoryAndFetchCurrency() {
+        amountSelected = dbRepository.getSavedAmount() ?? ""
         guard let dto = try? dbRepository.getRatesFromDB() else {
             Task { await fetchCurrency() }
             return
@@ -51,6 +52,7 @@ class HomeViewModel: ObservableObject {
         
         if let country = try? CountryDBRepository().getCountriesFromDB() {
             print("COUNTRY SAVED \(country)")
+            countrySelected = country
         }
         let currenTime = Date()
         if currenTime >= dto.updateInformation.timeNextUpdate {
@@ -59,7 +61,14 @@ class HomeViewModel: ObservableObject {
         } else {
             debugPrint("-------Fetch from DB \(dto)")
             exchangeDTO = dto
-            viewState = .loaded
+            do {
+                try dbRepository.saveRates(from: dto)
+                viewState = .loaded
+            } catch {
+                print("ERROR currencies \(error)")
+                viewState = .error(.currencyNotFound)
+            }
+            
         }
     }
     
@@ -107,13 +116,13 @@ class HomeViewModel: ObservableObject {
     }
     
     func currencyViewModel(with model: CountryModel) -> CurrencyViewModel {
-        let currency = Currency(currencyName: model.name,
-                                rate: "1",
-                                rateForAmount: "1",
-                                imageName: model.code,
-                                countryCode: model.code)
-        
-        let amount = Amount(value: Double(amountSelected) ?? 0)
+        let currency = Currency(currencyName: model.currencyCode,
+                                imageName: model.countryCode,
+                                countryCode: model.countryCode)
+        saveAmounSelected()
+        var amount = Amount(value: Double(amountSelected) ?? 1)
+        print("COUNTRY MODEL SHOWED ON HOMEVIEW \(model)")
+        amount.value = (model.rate ?? 0) * amount.value
         
         let viewModel = CurrencyViewModel(isSelectedAmount: true,
                                           showAmount: true,
@@ -123,5 +132,9 @@ class HomeViewModel: ObservableObject {
                                           fontSize: fontSize)
         
         return viewModel
+    }
+    
+    func saveAmounSelected() {
+        dbRepository.saveAmount(value: amountSelected)
     }
 }

@@ -84,8 +84,6 @@ struct CurrencyView_Previews: PreviewProvider {
     
     private static var currencyData = {
         return Currency(currencyName: "EU",
-                        rate: "1",
-                        rateForAmount: "1",
                         imageName: "EU",
                         countryCode: "EU")
     }()

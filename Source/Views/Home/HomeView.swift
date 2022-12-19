@@ -87,17 +87,15 @@ struct HomeView: View {
     }
     
     private func addCurrencyView() -> some View {
-        AddCurrencyView(isPresented: $viewModel.isShowingAddCountry,
-                        countrySelection: $viewModel.countrySelected)
+        AddCurrencyConfigurator().setup(
+            isPresented: $viewModel.isShowingAddCountry,
+            countrySelection: $viewModel.countrySelected
+        )
     }
     
     private func addCalculatorView() -> some View {
         CalculatorView(isPresented: $viewModel.isShowingCalculator,
                        customAmount: $viewModel.amountSelected)
-    }
-    
-    func selectedCountriesData() -> String {
-        return "\(viewModel.countrySelected.count)"
     }
     
     func currencyView(with model: CountryModel) -> some View {

@@ -14,32 +14,15 @@ class Countries: ObservableObject, Identifiable {
                                   countries: [CountryModel]())]
     @Published var selectedCountries = [CountryModel]()
     
-    init() {
-        fetch()
-    }
-    
-    public func fetch() {
+    public func fetch() throws -> [CountryModel] {
         
-        if let jsonData = getLocalData(),
-           let decodeData = try? JSONDecoder().decode([CountryModel].self,
-                                                      from:  jsonData) {
-            list = decodeData
-            
-            let sections = Dictionary(grouping: decodeData) { (country) -> Character in
-                return country.name.first!
-                }
-                .map { (key: Character, value: [CountryModel]) -> (letter: Character, countries: [CountryModel]) in
-                    (letter: key, countries: value)
-                }
-                .sorted { (left, right) -> Bool in
-                    left.letter < right.letter
-                }
-                
-            
-            print(sections)
-            listSorted = sections
-            print("DecodeData \(decodeData)")
+        guard let jsonData = getLocalData() else {
+            fatalError()
         }
+        let decodeData = try JSONDecoder().decode([CountryModel].self,
+                                                  from: jsonData)
+        list = decodeData
+        return list
     }
     
     private func getLocalData() -> Data? {
@@ -57,14 +40,36 @@ class Countries: ObservableObject, Identifiable {
 }
 
 struct CountryModel: Codable, Identifiable, Hashable {
-    
-    let name, dialCode, code: String
-    let id = UUID()
+    let countryCode, countryName, currencyCode, population, capital: String
+    let continentName: ContinentName
+    var rate: Double
+    var id = UUID()
     
     enum CodingKeys: String, CodingKey {
-        case name
-        case dialCode = "dial_code"
-        case code
+        case countryCode, countryName, currencyCode, population, capital, rate
+        case continentName
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        countryCode = try container.decode(String.self, forKey: .countryCode)
+        countryName = try container.decode(String.self, forKey: .countryName)
+        currencyCode = try container.decode(String.self, forKey: .currencyCode)
+        population = try container.decode(String.self, forKey: .population)
+        capital = try container.decode(String.self, forKey: .capital)
+        continentName = try container.decode(ContinentName.self, forKey: .continentName)
+        rate = try container.decodeIfPresent(Double.self, forKey: .rate) ?? 0
+      }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(countryCode, forKey: .countryCode)
+        try container.encode(countryName, forKey: .countryName)
+        try container.encode(currencyCode, forKey: .currencyCode)
+        try container.encode(population, forKey: .population)
+        try container.encode(capital, forKey: .capital)
+        try container.encode(continentName, forKey: .continentName)
+        try container.encodeIfPresent(rate, forKey: .rate)
     }
     
     func encode() throws -> Data {
@@ -76,4 +81,14 @@ struct CountryModel: Codable, Identifiable, Hashable {
         let decoder = JSONDecoder()
         return try decoder.decode(CountryModel.self, from: data)
     }
+}
+
+enum ContinentName: String, Codable {
+    case africa = "Africa"
+    case antarctica = "Antarctica"
+    case asia = "Asia"
+    case europe = "Europe"
+    case northAmerica = "North America"
+    case oceania = "Oceania"
+    case southAmerica = "South America"
 }

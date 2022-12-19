@@ -50,8 +50,6 @@ class DisplaySettingViewModel: ObservableObject {
         return [DisplaySettingOptions(title: "Preview",
                                       options: [
                                         .init(currency: .init(currencyName: "CAD",
-                                                              rate: "1",
-                                                              rateForAmount: "1",
                                                               imageName: "CA",
                                                               countryCode: "CA"))
                                       ]),

@@ -10,11 +10,10 @@ import SwiftUI
 
 struct AddCurrencyView: View {
     
+    @ObservedObject var viewModel: AddCurrencyViewModel
+    
     @State private var queryString = ""
     @State private var typeOfCurrency: CurrencyOptions = .All
-    @StateObject private var countries = Countries()
-    @State private var editMode: EditMode = .active
-    @State private var multiSelection = Set<UUID>()
     
     @Binding var isPresented: Bool
     @Binding var countrySelection: [CountryModel]
@@ -28,7 +27,7 @@ struct AddCurrencyView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List($countries.listSorted, id: \.letter, selection: $multiSelection) { $country in
+                List($viewModel.countriesSorted, id: \.letter, selection: $viewModel.multiSelection) { $country in
                     
                     Section(header: Text(String(country.letter))) {
                         ForEach(country.countries) { countryData in
@@ -38,9 +37,9 @@ struct AddCurrencyView: View {
                 }
                 .submitLabel(.done)
                 .listStyle(.insetGrouped)
-                .environment(\.editMode, $editMode)
+                .environment(\.editMode, $viewModel.editMode)
                 .toolbar {
-                    AnyView(Button(action: onAdd) { Text("Done")})
+                    Button(action: onAdd) { Text("Done")}
                 }
                 .searchable(text: $queryString,
                             prompt: "Currency, Country, Regions or Code")
@@ -54,28 +53,27 @@ struct AddCurrencyView: View {
     }
     
     func onAdd() {
-        print("Close view with selection \(multiSelection.count)")
-        print("Close view with selection \(multiSelection.debugDescription)")
+        print("Close view with selection \(viewModel.multiSelection.count)")
+        print("Close view with selection\(viewModel.multiSelection.debugDescription)")
         
-        let filterCountries = countries.list.filter { multiSelection.contains($0.id) }
+        let filterCountries = viewModel.filterCountries.filter { viewModel.multiSelection.contains($0.id) }
         
         print(filterCountries)
-        isPresented.toggle()
-        countries.selectedCountries.append(contentsOf: filterCountries)
+        viewModel.countries.selectedCountries.append(contentsOf: filterCountries)
         countrySelection.append(contentsOf: filterCountries)
         do {
             try CountryDBRepository().saveCountries(from: countrySelection)
         } catch {
             fatalError()
         }
+        isPresented.toggle()
     }
     
     func showCountry(with model: CountryModel) -> some View {
         
-        let currency = Currency(currencyName: model.name,
-                                rate: "0",
-                                rateForAmount: "0", imageName: model.code,
-                                countryCode: model.code)
+        let currency = Currency(currencyName: model.currencyCode,
+                                imageName: model.countryCode,
+                                countryCode: model.countryCode)
         
         let viewModel = CurrencyViewModel(isSelectedAmount: false,
                                           showAmount: false,
@@ -94,8 +92,8 @@ struct AddCurrencyView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            AddCurrencyView(isPresented: .constant(false), countrySelection: .constant([]))
-            AddCurrencyView(isPresented: .constant(false), countrySelection: .constant([]))
+            AddCurrencyConfigurator.preview()
+            AddCurrencyConfigurator.preview()
                 .preferredColorScheme(.dark)
         }
     }

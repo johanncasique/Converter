@@ -24,7 +24,7 @@ class CountryDBRepository: CountryDBRepositoryProtocol {
     
     func saveCountries(from selection: [CountryModel]) throws {
         let data = try JSONEncoder().encode(selection)
-        try save(value: data)
+        try save(dataValue: data)
     }
     
     func getCountriesFromDB() throws -> [CountryModel] {
@@ -41,14 +41,15 @@ protocol UserDefaultStorable {
 
     var key: String { get }
 
-    func save(value: DataType) throws
+    func save(dataValue: DataType) throws
     func load() throws -> DataType?
 }
 
 extension UserDefaultStorable where DataType: Codable {
-    func save(value: DataType) throws {
+
+    func save(dataValue: DataType) throws {
         let encoder = JSONEncoder()
-        let encoded = try encoder.encode(value)
+        let encoded = try encoder.encode(dataValue)
         UserDefaults.standard.set(encoded, forKey: key)
     }
 

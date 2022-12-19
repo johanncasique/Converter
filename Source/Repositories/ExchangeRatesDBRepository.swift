@@ -23,7 +23,7 @@ class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
 
     func saveRates(from dto: ExchangeRatesDTO) throws {
         let data = try dto.encode()
-        try save(value: data)
+        try save(dataValue: data)
     }
     
     func getRatesFromDB() throws -> ExchangeRatesDTO {
@@ -32,9 +32,26 @@ class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
         }
         return try ExchangeRatesDTO.decode(from: data)
     }
+    
+    func saveAmount(value: String) {
+        UserDefaults.standard.amountValue = value
+    }
+    
+    func getSavedAmount() -> String? {
+        UserDefaults.standard.amountValue
+    }
 }
 
 extension UserDefaults {
+    
+    var amountValue: String? {
+        get {
+            return string(forKey: "amountValue")
+        }
+        set {
+            setValue(newValue, forKey: "amountValue")
+        }
+    }
     
     var exchangeDTO: Data? {
         get {
