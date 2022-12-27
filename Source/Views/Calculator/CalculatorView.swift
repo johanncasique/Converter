@@ -13,6 +13,7 @@ struct CalculatorView: View {
     @State private var numberLabel = "0"
     @State private var formatNumber = ""
     @Binding var customAmount: String
+    @State var countryDO: CountryModelDTO
     
     enum CustomAmount: String {
         case thousand = "1K"
@@ -36,32 +37,10 @@ struct CalculatorView: View {
         return format
     }()
     
-    
     var body: some View {
         
         VStack(alignment: .leading) {
-            HStack(alignment: .center) {
-                Image("CO")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 40, height: 40).clipped().cornerRadius(4)
-                    .padding(.leading, 0)
-                
-                VStack(alignment: .leading) {
-                    Text("COP")
-                        .font(.title3)
-                    Text("Colombian peso")
-                        .font(.title3)
-                }
-                Spacer()
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                }
-                .frame(width: 60, height: 40)
-            }
-            .padding()
+            countryView
             HStack() {
                 Spacer()
                 
@@ -89,6 +68,36 @@ struct CalculatorView: View {
         .onAppear(perform: {
             numberLabel = "0"
         })
+    }
+    
+    var countryView: some View {
+        HStack(alignment: .center) {
+            Image(countryDO.countryCode)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 40, height: 40).clipped().cornerRadius(4)
+                .padding(.leading, 0)
+            
+            VStack(alignment: .leading) {
+                Text(countryDO.currencyCode)
+                    .font(.title3)
+                Text(countryName())
+                    .font(.title3)
+            }
+            Spacer()
+            Button {
+                isPresented.toggle()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+            }
+            .frame(width: 60, height: 40)
+        }
+        .padding()
+    }
+    
+    private func countryName() -> String {
+        let locale = Locale()
+        return locale.localizedString(forCurrencyCode: countryDO.currencyCode) ?? "No country name"
     }
     
     func numberPad() -> some View {
@@ -232,8 +241,8 @@ struct CalculatorView: View {
     }
 }
 
-struct CalculatorView_Previews: PreviewProvider {
-    static var previews: some View {
-        CalculatorView(isPresented: .constant(false), customAmount: .constant("100"))
-    }
-}
+//struct CalculatorView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CalculatorView(isPresented: .constant(false), customAmount: .constant("100"), countryDO: .constant(.))
+//    }
+//}

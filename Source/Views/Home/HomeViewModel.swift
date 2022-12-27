@@ -115,12 +115,12 @@ class HomeViewModel: ObservableObject {
         
     }
     
-    func currencyViewModel(with model: CountryModel) -> CurrencyViewModel {
+    func currencyViewModel(with model: CountryModelDTO) -> CurrencyViewModel {
         let currency = Currency(currencyName: model.currencyCode,
                                 imageName: model.countryCode,
                                 countryCode: model.countryCode)
         saveAmounSelected()
-        var amount = Amount(value: Double(amountSelected) ?? 1)
+        let amount = Amount(value: Double(amountSelected) ?? 1)
         print("COUNTRY MODEL SHOWED ON HOMEVIEW \(model)")
         amount.value = (model.rate ?? 0) * amount.value
         

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class Countries: ObservableObject, Identifiable {
     
@@ -81,6 +82,10 @@ struct CountryModel: Codable, Identifiable, Hashable {
         let decoder = JSONDecoder()
         return try decoder.decode(CountryModel.self, from: data)
     }
+    
+    func getDTO() -> CountryModelDTO {
+        return CountryModelDTO(from: self)
+    }
 }
 
 enum ContinentName: String, Codable {
@@ -91,4 +96,21 @@ enum ContinentName: String, Codable {
     case northAmerica = "North America"
     case oceania = "Oceania"
     case southAmerica = "South America"
+}
+
+
+struct CountryModelDTO: Identifiable {
+    let countryCode, countryName, currencyCode, capital: String
+    var rate: Double
+    var id: UUID
+    @State var isShowingCalculator: Bool = false
+    
+    init(from model: CountryModel) {
+        self.countryName = model.countryName
+        self.countryCode = model.countryCode
+        self.currencyCode = model.currencyCode
+        self.capital = model.capital
+        self.rate = model.rate
+        self.id = model.id
+    }
 }

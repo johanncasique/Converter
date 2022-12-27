@@ -12,6 +12,8 @@ struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     @ObservedObject private var countries = Countries()
     let slashPlusImage = "minus.slash.plus"
+    @State private var country: CountryModelDTO?
+    @State private var isPresented: Bool = false
     
     var body: some View {
         NavigationView {
@@ -33,17 +35,28 @@ struct HomeView: View {
     
     private var mainView: some View {
         VStack {
-            List {
-                ForEach(viewModel.countrySelected, id: \.self) { countrySelected in
-                    presentCalculatorButton(with: countrySelected)
+            NavigationStack {
+                List(viewModel.countrySelected, id: \.id) { countrySelected in
+                    Button {
+                        self.country = countrySelected.getDTO()
+                        viewModel.isShowingCalculator.toggle()
+                    } label: {
+                        currencyView(with: countrySelected.getDTO())
+                        .padding(4)
+                        .listRowSeparator(.hidden)
+                    }
+                    .sheet(isPresented: $viewModel.isShowingCalculator) {
+                        addCalculatorView(countryModel: country!)
+                    }
+                }
+                .navigationTitle(Text("Currency"))
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        toolBarItemView
+                    }
                 }
             }
-            .navigationTitle(Text("Currency"))
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    toolBarItemView
-                }
-            }
+           
         }
     }
     
@@ -73,18 +86,18 @@ struct HomeView: View {
         }.padding(.horizontal, -5)
     }
     
-    func presentCalculatorButton(with country: CountryModel) -> some View {
-        Button {
-            viewModel.isShowingCalculator.toggle()
-        } label: {
-            currencyView(with: country)
-            .padding(4)
-            .listRowSeparator(.hidden)
-        }
-        .sheet(isPresented: $viewModel.isShowingCalculator) {
-            addCalculatorView()
-        }
-    }
+//    func presentCalculatorButton(with country: CountryModelDTO) -> some View {
+//        Button {
+//            viewModel.isShowingCalculator.toggle()
+//        } label: {
+//            currencyView(with: country)
+//            .padding(4)
+//            .listRowSeparator(.hidden)
+//        }
+//        .sheet(isPresented: $viewModel.isShowingCalculator) {
+//            addCalculatorView(countryModel: country)
+//        }
+//    }
     
     private func addCurrencyView() -> some View {
         AddCurrencyConfigurator().setup(
@@ -93,12 +106,13 @@ struct HomeView: View {
         )
     }
     
-    private func addCalculatorView() -> some View {
+    private func addCalculatorView(countryModel: CountryModelDTO) -> some View {
         CalculatorView(isPresented: $viewModel.isShowingCalculator,
-                       customAmount: $viewModel.amountSelected)
+                       customAmount: $viewModel.amountSelected,
+                       countryDO: countryModel)
     }
     
-    func currencyView(with model: CountryModel) -> some View {
+    func currencyView(with model: CountryModelDTO) -> some View {
         CurrencyView(with: viewModel.currencyViewModel(with: model))
     }
 }
