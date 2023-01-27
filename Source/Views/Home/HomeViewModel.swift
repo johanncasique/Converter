@@ -10,12 +10,12 @@ import Swift
 import CoreData
 import UIKit
 
-@MainActor
 class HomeViewModel: ObservableObject {
     
     @Published var viewState: ViewState = .loading
     @Published var isShowingCalculator = false
     @Published var amountSelected = ""
+    @Published var countryCodeSelected = ""
     @Published var isShowingAddCountry = false
     @Published var countrySelected = [CountryModel]()
     private let repository: ExchangeRatesDataSourceRepository
@@ -45,6 +45,7 @@ class HomeViewModel: ObservableObject {
     
     private func checkDBRepositoryAndFetchCurrency() {
         amountSelected = dbRepository.getSavedAmount() ?? ""
+        countryCodeSelected = dbRepository.getSaveCountryCodeSelected() ?? ""
         guard let dto = try? dbRepository.getRatesFromDB() else {
             Task { await fetchCurrency() }
             return
@@ -120,11 +121,14 @@ class HomeViewModel: ObservableObject {
                                 imageName: model.countryCode,
                                 countryCode: model.countryCode)
         saveAmounSelected()
+        dbRepository.saveCountryCodeSelected(countryCodeSelected)
         let amount = Amount(value: Double(amountSelected) ?? 1)
         print("COUNTRY MODEL SHOWED ON HOMEVIEW \(model)")
-        amount.value = (model.rate ?? 0) * amount.value
+        if countryCodeSelected != model.countryCode {
+            amount.value = model.rate * amount.value
+        }
         
-        let viewModel = CurrencyViewModel(isSelectedAmount: true,
+        let viewModel = CurrencyViewModel(isSelectedAmount: countryCodeSelected == model.countryCode ? true : false,
                                           showAmount: true,
                                           currency: currency,
                                           amount: amount,

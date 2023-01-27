@@ -109,6 +109,7 @@ struct HomeView: View {
     private func addCalculatorView(countryModel: CountryModelDTO) -> some View {
         CalculatorView(isPresented: $viewModel.isShowingCalculator,
                        customAmount: $viewModel.amountSelected,
+                       countrySelected: $viewModel.countryCodeSelected,
                        countryDO: countryModel)
     }
     

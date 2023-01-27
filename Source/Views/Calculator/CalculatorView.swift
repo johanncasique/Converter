@@ -13,6 +13,7 @@ struct CalculatorView: View {
     @State private var numberLabel = "0"
     @State private var formatNumber = ""
     @Binding var customAmount: String
+    @Binding var countrySelected: String
     @State var countryDO: CountryModelDTO
     
     enum CustomAmount: String {
@@ -216,6 +217,7 @@ struct CalculatorView: View {
         return Button {
             isPresented.toggle()
             customAmount = formatAmount(numberLabel)
+            countrySelected = countryDO.countryCode
         } label: {
             HStack(alignment: .center) {
                 Image(systemName: "arrow.left.arrow.right.circle")

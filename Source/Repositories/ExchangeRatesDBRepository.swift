@@ -9,6 +9,8 @@ import Foundation
 protocol ExchangeRatesDBRepositoryProtocol: UserDefaultStorable {
     func saveRates(from dto: ExchangeRatesDTO) throws
     func getRatesFromDB() throws -> ExchangeRatesDTO
+    func saveCountryCodeSelected(_ value: String)
+    func getSaveCountryCodeSelected() -> String?
 }
 
 class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
@@ -40,6 +42,14 @@ class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
     func getSavedAmount() -> String? {
         UserDefaults.standard.amountValue
     }
+    
+    func saveCountryCodeSelected(_ value: String) {
+        UserDefaults.standard.countryCode = value
+    }
+    
+    func getSaveCountryCodeSelected() -> String? {
+        UserDefaults.standard.countryCode
+    }
 }
 
 extension UserDefaults {
@@ -68,6 +78,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: "countries")
+        }
+    }
+    
+    var countryCode: String? {
+        get {
+            string(forKey: "countryCode")
+        }
+        set {
+            setValue(newValue, forKey: "countryCode")
         }
     }
     

@@ -33,6 +33,12 @@
 		87B353932944C1BF00254403 /* AddCurrencyConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B353922944C1BF00254403 /* AddCurrencyConfigurator.swift */; };
 		87B353952944C38200254403 /* AddCurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B353942944C38200254403 /* AddCurrencyViewModel.swift */; };
 		87B353972946143400254403 /* Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B353962946143400254403 /* Amount.swift */; };
+		87B77C3B29816D3200E3A16D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B77C3A29816D3200E3A16D /* SceneDelegate.swift */; };
+		87B77C3C29816D3200E3A16D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B77C3A29816D3200E3A16D /* SceneDelegate.swift */; };
+		87B77C3F2981718100E3A16D /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B77C3E2981718100E3A16D /* AppRouter.swift */; };
+		87B77C402981718100E3A16D /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B77C3E2981718100E3A16D /* AppRouter.swift */; };
+		87B77C422981C76F00E3A16D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B77C412981C76F00E3A16D /* HomeViewController.swift */; };
+		87B77C432981C76F00E3A16D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B77C412981C76F00E3A16D /* HomeViewController.swift */; };
 		87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C5D206287889B600E8ED05 /* CalculatorView.swift */; };
 		87C60D1E27007981003560A4 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D1D27007981003560A4 /* Tests_iOS.swift */; };
 		87C60D2027007981003560A4 /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D1F27007981003560A4 /* Tests_iOSLaunchTests.swift */; };
@@ -101,6 +107,9 @@
 		87B353922944C1BF00254403 /* AddCurrencyConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyConfigurator.swift; sourceTree = "<group>"; };
 		87B353942944C38200254403 /* AddCurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyViewModel.swift; sourceTree = "<group>"; };
 		87B353962946143400254403 /* Amount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amount.swift; sourceTree = "<group>"; };
+		87B77C3A29816D3200E3A16D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		87B77C3E2981718100E3A16D /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		87B77C412981C76F00E3A16D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		87C5D206287889B600E8ED05 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		87C60D052700797E003560A4 /* ConverterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterApp.swift; sourceTree = "<group>"; };
 		87C60D062700797E003560A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -268,6 +277,14 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		87B77C3D2981711800E3A16D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				87B77C3E2981718100E3A16D /* AppRouter.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		87C5D2052878892F00E8ED05 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,9 +310,11 @@
 		87C60D042700797E003560A4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				87B77C3D2981711800E3A16D /* Root */,
 				878FA84B293FE1620070BB73 /* Utilities */,
 				87C60D052700797E003560A4 /* ConverterApp.swift */,
 				871108EA286DD28A00378AE3 /* UIApplicationDelegate.swift */,
+				87B77C3A29816D3200E3A16D /* SceneDelegate.swift */,
 				1E322FFD28A65DC1004BC2B0 /* RusableViews */,
 				87C60D4727026C03003560A4 /* Networking */,
 				878FA843293FD6030070BB73 /* Repositories */,
@@ -364,6 +383,7 @@
 				87C60D4C270393BA003560A4 /* HomeViewModel.swift */,
 				878FA845293FD7B20070BB73 /* HomeConfigurator.swift */,
 				878FA847293FD7C30070BB73 /* HomeRouter.swift */,
+				87B77C412981C76F00E3A16D /* HomeViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -575,6 +595,7 @@
 				878FA84A293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift in Sources */,
 				87B353952944C38200254403 /* AddCurrencyViewModel.swift in Sources */,
 				87B3537C2942166A00254403 /* APIEnpoint.swift in Sources */,
+				87B77C3B29816D3200E3A16D /* SceneDelegate.swift in Sources */,
 				87FBB5EC283CB913004D5494 /* CountryModel.swift in Sources */,
 				87B353972946143400254403 /* Amount.swift in Sources */,
 				1E322FFF28A65DD5004BC2B0 /* CurrencyView.swift in Sources */,
@@ -585,10 +606,12 @@
 				87B3537A294137D300254403 /* Endpoint.swift in Sources */,
 				87B353912943C21400254403 /* CountryDBRepository.swift in Sources */,
 				878FA846293FD7B20070BB73 /* HomeConfigurator.swift in Sources */,
+				87B77C3F2981718100E3A16D /* AppRouter.swift in Sources */,
 				87C60D2F27007981003560A4 /* HomeView.swift in Sources */,
 				87B3538D2943B34400254403 /* ExchangeRateDO.swift in Sources */,
 				87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */,
 				87526B1A28805B9600B288AC /* DisplaySettingViewModel.swift in Sources */,
+				87B77C422981C76F00E3A16D /* HomeViewController.swift in Sources */,
 				87C60D2D27007981003560A4 /* ConverterApp.swift in Sources */,
 				87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */,
 				87B35378294135E000254403 /* NetworkConfiguration.swift in Sources */,
@@ -609,8 +632,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				87C60D3027007981003560A4 /* HomeView.swift in Sources */,
+				87B77C3C29816D3200E3A16D /* SceneDelegate.swift in Sources */,
 				87C60D5127086518003560A4 /* Documentation.docc in Sources */,
 				87C60D2E27007981003560A4 /* ConverterApp.swift in Sources */,
+				87B77C402981718100E3A16D /* AppRouter.swift in Sources */,
+				87B77C432981C76F00E3A16D /* HomeViewController.swift in Sources */,
 				87FBB5EA283C2122004D5494 /* AddCurrencyView.swift in Sources */,
 				87FBB5ED283CB913004D5494 /* CountryModel.swift in Sources */,
 				871108EC286DD28A00378AE3 /* UIApplicationDelegate.swift in Sources */,
