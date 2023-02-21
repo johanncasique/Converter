@@ -6,11 +6,12 @@
 //
 
 import Foundation
+typealias CountrySaved = (countryCode: String, rate: String)
 protocol ExchangeRatesDBRepositoryProtocol: UserDefaultStorable {
     func saveRates(from dto: ExchangeRatesDTO) throws
     func getRatesFromDB() throws -> ExchangeRatesDTO
-    func saveCountryCodeSelected(_ value: String)
-    func getSaveCountryCodeSelected() -> String?
+    func saveCountry(from dto: CountryModelDTO) throws
+    func getCountrySaved() throws -> CountryModelDTO
 }
 
 class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
@@ -43,12 +44,16 @@ class ExchangeRatesDBRepository: ExchangeRatesDBRepositoryProtocol {
         UserDefaults.standard.amountValue
     }
     
-    func saveCountryCodeSelected(_ value: String) {
-        UserDefaults.standard.countryCode = value
+    func saveCountry(from dto: CountryModelDTO) throws {
+        let data = try dto.encode()
+        try save(dataValue: data)
     }
     
-    func getSaveCountryCodeSelected() -> String? {
-        UserDefaults.standard.countryCode
+    func getCountrySaved() throws -> CountryModelDTO {
+        guard let data = try load() else {
+            throw ExchangeRatesDBError.failedToGetFromDB
+        }
+        return try CountryModelDTO.decode(from: data)
     }
 }
 
@@ -78,15 +83,6 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: "countries")
-        }
-    }
-    
-    var countryCode: String? {
-        get {
-            string(forKey: "countryCode")
-        }
-        set {
-            setValue(newValue, forKey: "countryCode")
         }
     }
     

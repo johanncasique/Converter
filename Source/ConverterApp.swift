@@ -15,31 +15,31 @@ struct ConverterApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-//                HomeConfigurator()
-//                    .setup()
-//                    .tabItem({
-//                        Label("Converter", systemImage: "plus.forwardslash.minus")
-//                            .foregroundColor(.green)
-//                    })
-//                    .tag(0)
-//                
-//                Text("Second View")
-//                    .font(.title)
-//                    .tabItem( {
-//                        VStack {
-//                            Image(systemName: "chart.line.uptrend.xyaxis")
-//                            Text("Chart")
-//                        }
-//                    })
-//                    .tag(1)
-//                SettingsView()
-//                    .tabItem( {
-//                        VStack {
-//                            Image(systemName: "gear.circle.fill")
-//                            Text("Settings")
-//                        }
-//                    })
-//                    .tag(2)
+                HomeConfigurator()
+                    .setup()
+                    .tabItem({
+                        Label("Converter", systemImage: "plus.forwardslash.minus")
+                            .foregroundColor(.green)
+                    })
+                    .tag(0)
+                
+                Text("Second View")
+                    .font(.title)
+                    .tabItem( {
+                        VStack {
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                            Text("Chart")
+                        }
+                    })
+                    .tag(1)
+                SettingsView()
+                    .tabItem( {
+                        VStack {
+                            Image(systemName: "gear.circle.fill")
+                            Text("Settings")
+                        }
+                    })
+                    .tag(2)
             }
             
         }

@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct HomeConfigurator {
-    
-    func setup() -> UIViewController {
+    @MainActor
+    func setup() -> some View {
         let repository = ExchangeRatesDataSourceRepository(configure: AppConfig.apiConfig())
         let dbRepository = ExchangeRatesDBRepository()
         let viewModel = HomeViewModel(repository: repository,
                                       dbRepository: dbRepository)
-        return HomeViewController(homeViewModel: viewModel)
+        return HomeView(viewModel: viewModel)
     }
 }

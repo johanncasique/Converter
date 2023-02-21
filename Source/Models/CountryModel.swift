@@ -99,11 +99,10 @@ enum ContinentName: String, Codable {
 }
 
 
-struct CountryModelDTO: Identifiable {
+struct CountryModelDTO: Identifiable, Codable {
     let countryCode, countryName, currencyCode, capital: String
     var rate: Double
     var id: UUID
-    @State var isShowingCalculator: Bool = false
     
     init(from model: CountryModel) {
         self.countryName = model.countryName
@@ -112,5 +111,26 @@ struct CountryModelDTO: Identifiable {
         self.capital = model.capital
         self.rate = model.rate
         self.id = model.id
+    }
+    
+    init() {
+        countryName = ""
+        countryCode = ""
+        currencyCode = ""
+        capital = ""
+        rate = 0
+        id = .init()
+    }
+}
+
+extension CountryModelDTO {
+    func encode() throws -> Data {
+        let encoder = JSONEncoder()
+        return try encoder.encode(self)
+    }
+    
+    static func decode(from data: Data) throws -> CountryModelDTO {
+        let decoder = JSONDecoder()
+        return try decoder.decode(CountryModelDTO.self, from: data)
     }
 }

@@ -15,7 +15,7 @@ class HomeViewModel: ObservableObject {
     @Published var viewState: ViewState = .loading
     @Published var isShowingCalculator = false
     @Published var amountSelected = ""
-    @Published var countryCodeSelected = ""
+    @Published var countrySaved = CountryModelDTO()
     @Published var isShowingAddCountry = false
     @Published var countrySelected = [CountryModel]()
     private let repository: ExchangeRatesDataSourceRepository
@@ -44,8 +44,14 @@ class HomeViewModel: ObservableObject {
     }
     
     private func checkDBRepositoryAndFetchCurrency() {
-        amountSelected = dbRepository.getSavedAmount() ?? ""
-        countryCodeSelected = dbRepository.getSaveCountryCodeSelected() ?? ""
+        do {
+            amountSelected = dbRepository.getSavedAmount() ?? ""
+            if let countrySaved = try? dbRepository.getCountrySaved() {
+                self.countrySaved = countrySaved
+            }
+        }
+        
+        
         guard let dto = try? dbRepository.getRatesFromDB() else {
             Task { await fetchCurrency() }
             return
@@ -75,34 +81,21 @@ class HomeViewModel: ObservableObject {
     
     
     func fetchCurrency() async {
-        do {
-            exchangeDTO = try await repository.fetchCurrencies()
-            guard let dto = exchangeDTO else {
+        Task {
+            do {
+                exchangeDTO = try await repository.fetchCurrencies()
+                guard let dto = exchangeDTO else {
+                    viewState = .error(.currencyNotFound)
+                    return
+                }
+                try dbRepository.saveRates(from: dto)
+                fireNextFetch()
+                viewState = .loaded
+            } catch {
+                print("ERROR currencies \(error)")
                 viewState = .error(.currencyNotFound)
-                return
             }
-            try dbRepository.saveRates(from: dto)
-            fireNextFetch()
-            viewState = .loaded
-        } catch {
-            print("ERROR currencies \(error)")
-            viewState = .error(.currencyNotFound)
         }
-//        if var currencies = try? await repository.fetchCurrencies() {
-//            
-//                var currencyArray = [Currency]()
-////                for (key, _) in currencies {
-////                    currencies[key]?.countryCode = key
-////                    if let currency = currencies[key] {
-////                        currencyArray.append(currency)
-////                    }
-////                }
-//                //self.currencys = currencyArray
-//                
-//            
-//        } else {
-//            viewState = .error(.currencyNotFound)
-//        }
     }
     
     private func fireNextFetch() {
@@ -121,14 +114,16 @@ class HomeViewModel: ObservableObject {
                                 imageName: model.countryCode,
                                 countryCode: model.countryCode)
         saveAmounSelected()
-        dbRepository.saveCountryCodeSelected(countryCodeSelected)
+        try? dbRepository.saveCountry(from: countrySaved)
+        
         let amount = Amount(value: Double(amountSelected) ?? 1)
         print("COUNTRY MODEL SHOWED ON HOMEVIEW \(model)")
-        if countryCodeSelected != model.countryCode {
-            amount.value = model.rate * amount.value
+        if countrySaved.rate != 0 {
+            if countrySaved.countryCode != model.countryCode {
+                amount.value = amount.value * (countrySaved.rate * model.rate)
+            }
         }
-        
-        let viewModel = CurrencyViewModel(isSelectedAmount: countryCodeSelected == model.countryCode ? true : false,
+        let viewModel = CurrencyViewModel(isSelectedAmount: countrySaved.countryCode == model.countryCode ? true : false,
                                           showAmount: true,
                                           currency: currency,
                                           amount: amount,
