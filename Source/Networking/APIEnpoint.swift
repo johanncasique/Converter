@@ -8,9 +8,7 @@
 import Foundation
 
 struct APIEndpoint {
-    static func getExchangeRate() -> Endpoint<ExchangeRateDO> {
-        
-        return Endpoint(path: "latest/USD",
-                        method: .get)
+    static func getExchangeRate() -> ExchangeRateEndpoint{
+        return ExchangeRateEndpoint(currency: "PEN")
     }
 }

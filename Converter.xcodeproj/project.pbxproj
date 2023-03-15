@@ -20,6 +20,8 @@
 		878FA846293FD7B20070BB73 /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA845293FD7B20070BB73 /* HomeConfigurator.swift */; };
 		878FA848293FD7C30070BB73 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA847293FD7C30070BB73 /* HomeRouter.swift */; };
 		878FA84A293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878FA849293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift */; };
+		87ABAB9F29C27F98008E4439 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ABAB9E29C27F98008E4439 /* APIError.swift */; };
+		87ABABA229C27FD4008E4439 /* ExchangeRateEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ABABA129C27FD4008E4439 /* ExchangeRateEndpoint.swift */; };
 		87B1D4D8287F643700F22D8A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D7287F643700F22D8A /* SettingsView.swift */; };
 		87B1D4DA287F666400F22D8A /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */; };
 		87B35378294135E000254403 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B35377294135E000254403 /* NetworkConfiguration.swift */; };
@@ -45,8 +47,8 @@
 		87C60D3127007981003560A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87C60D0727007980003560A4 /* Assets.xcassets */; };
 		87C60D3227007981003560A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87C60D0727007980003560A4 /* Assets.xcassets */; };
 		87C60D4627026A35003560A4 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4527026A35003560A4 /* CurrencyModel.swift */; };
-		87C60D4927026C16003560A4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4827026C16003560A4 /* NetworkService.swift */; };
-		87C60D4B27026CEB003560A4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4A27026CEB003560A4 /* Config.swift */; };
+		87C60D4927026C16003560A4 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4827026C16003560A4 /* ApiManager.swift */; };
+		87C60D4B27026CEB003560A4 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4A27026CEB003560A4 /* ApiConfig.swift */; };
 		87C60D4D270393BA003560A4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4C270393BA003560A4 /* HomeViewModel.swift */; };
 		87C60D5027086518003560A4 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4F27086518003560A4 /* Documentation.docc */; };
 		87C60D5127086518003560A4 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 87C60D4F27086518003560A4 /* Documentation.docc */; };
@@ -88,6 +90,8 @@
 		878FA845293FD7B20070BB73 /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
 		878FA847293FD7C30070BB73 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		878FA849293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesDataSourceRepository.swift; sourceTree = "<group>"; };
+		87ABAB9E29C27F98008E4439 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		87ABABA129C27FD4008E4439 /* ExchangeRateEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateEndpoint.swift; sourceTree = "<group>"; };
 		87B1D4D7287F643700F22D8A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		87B1D4D9287F666400F22D8A /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		87B35377294135E000254403 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
@@ -115,8 +119,8 @@
 		87C60D2927007981003560A4 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		87C60D2B27007981003560A4 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		87C60D4527026A35003560A4 /* CurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
-		87C60D4827026C16003560A4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		87C60D4A27026CEB003560A4 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		87C60D4827026C16003560A4 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		87C60D4A27026CEB003560A4 /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
 		87C60D4C270393BA003560A4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		87C60D4E27065515003560A4 /* Converter (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Converter (iOS).entitlements"; sourceTree = "<group>"; };
 		87C60D4F27086518003560A4 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
@@ -231,6 +235,15 @@
 				87B3537F2942878D00254403 /* Extensions */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		87ABABA029C27FB2008E4439 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				87B35379294137D300254403 /* Endpoint.swift */,
+				87ABABA129C27FD4008E4439 /* ExchangeRateEndpoint.swift */,
+			);
+			path = Endpoints;
 			sourceTree = "<group>";
 		};
 		87B1D4D6287F642000F22D8A /* Settings */ = {
@@ -383,11 +396,12 @@
 		87C60D4727026C03003560A4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				87C60D4A27026CEB003560A4 /* Config.swift */,
-				87C60D4827026C16003560A4 /* NetworkService.swift */,
+				87C60D4A27026CEB003560A4 /* ApiConfig.swift */,
+				87C60D4827026C16003560A4 /* ApiManager.swift */,
 				87B35377294135E000254403 /* NetworkConfiguration.swift */,
-				87B35379294137D300254403 /* Endpoint.swift */,
+				87ABABA029C27FB2008E4439 /* Endpoints */,
 				87B3537B2942166A00254403 /* APIEnpoint.swift */,
+				87ABAB9E29C27F98008E4439 /* APIError.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -568,9 +582,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ABABA229C27FD4008E4439 /* ExchangeRateEndpoint.swift in Sources */,
 				87C60D4627026A35003560A4 /* CurrencyModel.swift in Sources */,
 				87C60D4D270393BA003560A4 /* HomeViewModel.swift in Sources */,
 				87B353832943460F00254403 /* ExchangeRatesDBRepository.swift in Sources */,
+				87ABAB9F29C27F98008E4439 /* APIError.swift in Sources */,
 				8777D65C28FF3AA700601A5E /* UnitsView.swift in Sources */,
 				878FA84A293FDA700070BB73 /* ExchangeRatesDataSourceRepository.swift in Sources */,
 				87B353952944C38200254403 /* AddCurrencyViewModel.swift in Sources */,
@@ -579,9 +595,9 @@
 				87B353972946143400254403 /* Amount.swift in Sources */,
 				1E322FFF28A65DD5004BC2B0 /* CurrencyView.swift in Sources */,
 				87C60D5027086518003560A4 /* Documentation.docc in Sources */,
-				87C60D4927026C16003560A4 /* NetworkService.swift in Sources */,
+				87C60D4927026C16003560A4 /* ApiManager.swift in Sources */,
 				87C5D207287889B600E8ED05 /* CalculatorView.swift in Sources */,
-				87C60D4B27026CEB003560A4 /* Config.swift in Sources */,
+				87C60D4B27026CEB003560A4 /* ApiConfig.swift in Sources */,
 				87B3537A294137D300254403 /* Endpoint.swift in Sources */,
 				87B353912943C21400254403 /* CountryDBRepository.swift in Sources */,
 				878FA846293FD7B20070BB73 /* HomeConfigurator.swift in Sources */,
