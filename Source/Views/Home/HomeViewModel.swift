@@ -18,9 +18,11 @@ class HomeViewModel: ObservableObject {
     @Published var amountSelected = ""
     @Published var isShowingAddCountry = false
     @Published var countrySelected = [CountryModel]()
+    @ObservedObject private var countries = Countries()
     private let repository: ExchangeRatesDataSourceRepository
     private let dbRepository: ExchangeRatesDBRepository
     private var exchangeDTO: ExchangeRatesDTO? = nil
+    
     
     @AppStorage("fontSize") private var fontSize = 0.0
     @AppStorage("toggleBoldTextIsOn") var toggleBoldTextIsOn = false

@@ -10,9 +10,9 @@ import SwiftUI
 struct HomeView: View {
     
     @ObservedObject var viewModel: HomeViewModel
-    @ObservedObject private var countries = Countries()
     let slashPlusImage = "minus.slash.plus"
-    @State private var country: CountryModelDTO?
+    let navigationTitleText = "Currency"
+    @State private var country: CountryModelDTO!
     @State private var isPresented: Bool = false
     
     var body: some View {
@@ -27,102 +27,77 @@ struct HomeView: View {
             }
         }
         .navigationViewStyle(.stack)
-        .toolbar {
-            AnyView(Image(systemName: slashPlusImage))
-        }
     }
-    
-    
-    private var mainView: some View {
-        VStack {
-            NavigationStack {
-                List(viewModel.countrySelected, id: \.id) { countrySelected in
-                    Button {
-                        self.country = countrySelected.getDTO()
-                        viewModel.isShowingCalculator.toggle()
-                    } label: {
-                        currencyView(with: countrySelected.getDTO())
-                        .padding(4)
-                        .listRowSeparator(.hidden)
-                    }
-                    .sheet(isPresented: $viewModel.isShowingCalculator) {
-                        addCalculatorView(countryModel: country!)
-                    }
-                }
-                .navigationTitle(Text("Currency"))
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        toolBarItemView
-                    }
-                }
-            }
-           
-        }
-    }
-    
-    private var headerView: some View {
-        HStack(alignment: .top) {
-            Text("Currency")
-                .foregroundColor(.primary)
-                .font(Font.system(.largeTitle).bold())
-            Spacer()
-        }
-        .padding(.horizontal, 16)
-    }
-    
+}
+// MARK: - Bar Item Views
+extension HomeView {
     private var toolBarItemView: some View {
         HStack {
-            Button(action: { viewModel.isShowingAddCountry.toggle() }) {
-                Image(systemName: "plus")
-            }
-            .sheet(isPresented: $viewModel.isShowingAddCountry) {
-                    addCurrencyView()
-                    .navigationBarTitle("Agregar moneda")
-            }
+            addCountryBarItemView
             Spacer()
-            Button("Edit") {
-                print("Click button")
-            }
+            editBarItemView
         }.padding(.horizontal, -5)
     }
     
-//    func presentCalculatorButton(with country: CountryModelDTO) -> some View {
-//        Button {
-//            viewModel.isShowingCalculator.toggle()
-//        } label: {
-//            currencyView(with: country)
-//            .padding(4)
-//            .listRowSeparator(.hidden)
-//        }
-//        .sheet(isPresented: $viewModel.isShowingCalculator) {
-//            addCalculatorView(countryModel: country)
-//        }
-//    }
-    
-    private func addCurrencyView() -> some View {
-        AddCurrencyConfigurator().setup(
-            isPresented: $viewModel.isShowingAddCountry,
-            countrySelection: $viewModel.countrySelected
-        )
+    private var addCountryBarItemView: some View {
+        Button(action: { viewModel.isShowingAddCountry.toggle() }) {
+            Image(systemName: "plus")
+        }
+        .sheet(isPresented: $viewModel.isShowingAddCountry) {
+            AddCurrencyConfigurator().setup(
+                isPresented: $viewModel.isShowingAddCountry,
+                countrySelection: $viewModel.countrySelected
+            )
+            .navigationBarTitle("Agregar moneda")
+        }
     }
     
-    private func addCalculatorView(countryModel: CountryModelDTO) -> some View {
-        CalculatorView(isPresented: $viewModel.isShowingCalculator,
-                       customAmount: $viewModel.amountSelected,
-                       countryDO: countryModel)
+    private var editBarItemView: some View {
+        Button("Edit") {
+            print("Click button")
+        }
+    }
+}
+
+
+// MARK: - Main views
+extension HomeView {
+    private var mainView: some View {
+        countryList
+            .navigationTitle(navigationTitleText)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    toolBarItemView
+                }
+            }
     }
     
+    private var countryList: some View {
+        List(viewModel.countrySelected, id: \.id) { countrySelected in
+            countrySelectionButtonCell(countrySelected)
+        }
+    }
+    
+    private func countrySelectionButtonCell(_ countrySelected: CountryModel) -> some View {
+        let onTap = TapGesture()
+                .onEnded {
+                    self.country = countrySelected.getDTO()
+                    viewModel.isShowingCalculator.toggle()
+                }
+
+            return currencyView(with: countrySelected.getDTO())
+                .padding(4)
+                .listRowSeparator(.hidden)
+                .gesture(onTap)
+                .sheet(isPresented: $viewModel.isShowingCalculator) {
+                    CalculatorView(isPresented: $viewModel.isShowingCalculator,
+                                   customAmount: $viewModel.amountSelected,
+                                   countryDO: country)
+
+                }
+    }
+
     func currencyView(with model: CountryModelDTO) -> some View {
         CurrencyView(with: viewModel.currencyViewModel(with: model))
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
-//            HomeView(viewModel: .init(repository: .init(configure: AppConfig.apiConfig())))
-//                .preferredColorScheme(.dark)
-//        }
-//    }
-//} 
